@@ -73,6 +73,10 @@ UPDATE Language_EN_US
 SET Text = '+3 [ICON_RESEARCH] Science, +2 [ICON_RES_COAL] Coal and +1 [ICON_RES_IRON] Iron. Maximum of 3 may be built. All mountains provides +3 [ICON_PRODUCTION] Production. [NEWLINE][NEWLINE]City must have a nearby Mountain.'
 WHERE Tag = 'TXT_KEY_BUILDING_INDUSTRIAL_MINE_HELP' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
+UPDATE Language_EN_US
+SET Text = 'City must have a {TXT_KEY_BUILDING_FORTRESS}.'
+WHERE Tag = 'TXT_KEY_BUILDING_COASTAL_BATTERY_HELP' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
+
 INSERT INTO Building_ResourceQuantity (BuildingType, ResourceType, Quantity)
 SELECT 'BUILDING_INDUSTRIAL_MINE', 'RESOURCE_IRON', 1 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
@@ -89,4 +93,38 @@ WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1
 INSERT INTO Building_LocalResourceOrs (BuildingType, ResourceType)
 SELECT  'BUILDING_RANCH', Type FROM Resources
 WHERE Type IN('RESOURCE_COW', 'RESOURCE_HORSE', 'RESOURCE_SHEEP')
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type = 'CBPMC_INDUSTRIAL' AND Value= 1);
+
+UPDATE Building_ClassesNeededInCity
+SET BuildingClassType = 'BUILDINGCLASS_FORTRESS'
+WHERE BuildingType = 'BUILDING_COASTAL_BATTERY'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOREINDUSTRIAL' AND Value= 1);
+
+-- Add Coastal Battery to Military-Industrial Complex (Autocracy) tenet
+INSERT  INTO Policy_BuildingClassYieldChanges
+(PolicyType, BuildingClassType, YieldType, YieldChange)
+SELECT DISTINCT bcyc.PolicyType, bc.Type, bcyc.YieldType, bcyc.YieldChange
+FROM BuildingClasses bc, Policy_BuildingClassYieldChanges bcyc
+WHERE bc.Type = 'BUILDINGCLASS_COASTAL_BATTERY'
+AND bcyc.PolicyType = 'POLICY_MOBILIZATION'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type = 'CBPMC_INDUSTRIAL' AND Value= 1);
+
+-- Add Coastal Battery to Defender of Faith belief
+-- +1 Faith and +2 Culture for all of these buildings.
+INSERT  INTO Belief_BuildingClassYieldChanges
+(BeliefType, BuildingClassType, YieldType, YieldChange)
+SELECT DISTINCT bcyc.BeliefType, bc.Type, bcyc.YieldType, bcyc.YieldChange
+FROM BuildingClasses bc, Belief_BuildingClassYieldChanges bcyc
+WHERE bc.Type = 'BUILDINGCLASS_COASTAL_BATTERY'
+AND bcyc.BeliefType = 'BELIEF_DEFENDER_FAITH'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type = 'CBPMC_INDUSTRIAL' AND Value= 1);
+
+-- Add Coastal Battery to Oda Nobunaga's Ubique Ability (Japan)
+-- +1 Faith and Culture for all of these buildings.
+INSERT  INTO Trait_BuildingClassYieldChanges
+(TraitType, BuildingClassType, YieldType, YieldChange)
+SELECT DISTINCT bcyc.TraitType, bc.Type, bcyc.YieldType, bcyc.YieldChange
+FROM BuildingClasses bc, Trait_BuildingClassYieldChanges bcyc
+WHERE bc.Type = 'BUILDINGCLASS_COASTAL_BATTERY'
+AND bcyc.TraitType = 'TRAIT_FIGHT_WELL_DAMAGED'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type = 'CBPMC_INDUSTRIAL' AND Value= 1);

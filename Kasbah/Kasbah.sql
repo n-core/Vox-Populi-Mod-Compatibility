@@ -3,7 +3,7 @@ SELECT '+25% [ICON_GREAT_PEOPLE] Great People generation in this City. +1 [ICON_
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_KASBAH' AND Value= 1);
 
 UPDATE Language_EN_US
-SET Text = 'The Riad increases the speed at which [ICON_GREAT_PEOPLE] Great People are generated in the city by 25% and also provides +1 [ICON_HAPPINESS_1] and a +1 [ICON_CULTURE] Culture bonus to all desert tiles. The city also does not need to be next to a river for the Riad to be constructed, however you cannot construct this if a bath is in the city.'
+SET Text = 'The Riad increases the speed at which [ICON_GREAT_PEOPLE] Great People are generated in the City by 25%, and also provides +1 [ICON_HAPPINESS_1] Happiness. Provides [ICON_CULTURE] Culture bonus to all Desert tiles.'
 WHERE Tag = 'TXT_KEY_BUILDING_RIAD_STRATEGY' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_KASBAH' AND Value= 1);
 
 UPDATE Improvements

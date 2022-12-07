@@ -1,5 +1,7 @@
 UPDATE Buildings SET
-ReligiousUnrestModifier = -25, Happiness = 0, Help = 'TXT_KEY_BUILDING_MARA_HELP', ReligiousPressureModifier = 25,
+ReligiousUnrestFlatReduction = 1, ReligiousPressureModifier = 25, Happiness = 0, Help = 'TXT_KEY_BUILDING_MARA_HELP',
+GreatWorkSlotType = (SELECT GreatWorkSlotType FROM Buildings WHERE Type = 'BUILDING_TEMPLE'),
+GreatWorkCount = (SELECT GreatWorkCount FROM Buildings WHERE Type = 'BUILDING_TEMPLE'),
 Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_TEMPLE'),
 GoldMaintenance = (SELECT GoldMaintenance FROM Buildings WHERE Type = 'BUILDING_TEMPLE'),
 HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILDING_TEMPLE')
@@ -18,9 +20,12 @@ SELECT 'BUILDING_MARA', 'RESOURCE_AMBER', 'YIELD_CULTURE', 1 WHERE EXISTS (SELEC
 SELECT 'BUILDING_MARA', 'RESOURCE_AMBER', 'YIELD_FAITH', 1 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 INSERT INTO Language_en_US (Text, Tag)
-SELECT 'Reduces [ICON_HAPPINESS_3] Religious Unrest and generates +25% Religious Pressure. +1 [ICON_CULTURE] Culture from Coast tiles worked by the city.[NEWLINE]Nearby [ICON_RES_INCENSE] Incense: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.[NEWLINE] Nearby [ICON_RES_WINE] Wine: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.', 'TXT_KEY_BUILDING_MARA_HELP'
+SELECT 'Generates +25% Religious Pressure. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. +1 [ICON_CULTURE] Culture from Coast tiles worked by the City.[NEWLINE]
+[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_PEACE] Religious Unrest.[NEWLINE]
+[NEWLINE]Nearby [ICON_RES_INCENSE] Incense: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.[NEWLINE]Nearby [ICON_RES_WINE] Wine: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.[NEWLINE]Nearby [ICON_RES_AMBER] Amber: +1 [ICON_CULTURE] Culture, +1 [ICON_GOLD] Gold.',
+'TXT_KEY_BUILDING_MARA_HELP'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 UPDATE Language_EN_US
-SET Text = 'The Marae grants +2 [ICON_PEACE] Faith. Helps reduce [ICON_HAPPINESS_3] Religious Division and generates +25% Religious Pressure. It also provides +1 [ICON_CULTURE] Culture bonus to every coast tile worked by the city. The city must contain a Shrine before the Marae can be constructed.'
+SET Text = 'Unique {TXT_KEY_CIV_POLYNESIA_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_TEMPLE}. Helps reduce [ICON_HAPPINESS_3] Religious Unrest and generates +25% Religious Pressure. It also provides [ICON_CULTURE] Culture bonus to every Coast tiles worked by the city. The city must contain a {TXT_KEY_BUILDING_SHRINE} before the {TXT_KEY_BUILDING_MARA_DESC} can be constructed.'
 WHERE Tag = 'TXT_KEY_BUILDING_MARA_STRATEGY' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);

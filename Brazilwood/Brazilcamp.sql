@@ -2,11 +2,11 @@ DELETE FROM Language_en_US
 WHERE Tag = 'TXT_BUILDING_JCHURCH_HELP' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
 INSERT INTO Language_en_US (Text, Tag)
-SELECT '+25% [ICON_GREAT_PEOPLE] Great People generation in this City. +1 [ICON_PEACE] Faith for every 6 [ICON_CITIZEN] Citizens in the City. +1 [ICON_CULTURE] Culture from Jungle. Increases the city''s resistance to conversion by 10%.[NEWLINE]Nearby Oases: +2 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_CITRUS] Citrus: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_COCOA] Cocoa: +1 [ICON_FOOD] Food, +1 [ICON_GOLD]' , 'TXT_KEY_BUILDING_JCHURCH_HELP'
+SELECT '+25% [ICON_GREAT_PEOPLE] Great People generation in this City. +1 [ICON_PEACE] Faith for every 6 [ICON_CITIZEN] Citizens in the City. +1 [ICON_CULTURE] Culture from Jungle. Increases the City''s resistance to conversion by 10%.[NEWLINE]Nearby Oases: +2 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_CITRUS] Citrus: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_COCOA] Cocoa: +1 [ICON_FOOD] Food, +1 [ICON_GOLD]' , 'TXT_KEY_BUILDING_JCHURCH_HELP'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
 UPDATE Language_en_US
-SET Text = 'The Jesuit Church increases the speed at which [ICON_GREAT_PEOPLE] Great people are generated in the city by 25%, buffs the food output of Oases, increases [ICON_PEACE] Faith in the city and also provide a [ICON_CULTURE] Culture bonus on Jungle tiles. Unlike the Garden, the Jesuit Church does not require an Aqueduct in the City in order to be built.'
+SET Text = 'The Jesuit Church increases the speed at which [ICON_GREAT_PEOPLE] Great People are generated in the City by 25%, buffs the food output of Oases, increases [ICON_PEACE] Faith in the City and also provide a [ICON_CULTURE] Culture bonus on Jungle tiles. Unlike the Garden, the Jesuit Church does not require an {TXT_KEY_BUILDING_AQUEDUCT} in the City in order to be built.'
 WHERE Tag = 'TXT_KEY_BUILDING_JCHURCH_STRATEGY' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
 UPDATE Buildings SET

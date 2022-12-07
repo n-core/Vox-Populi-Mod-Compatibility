@@ -42,7 +42,6 @@ UPDATE  Buildings SET
         -- Not so important bit
         PrereqTech = 'TECH_AGRICULTURE',
         FreeStartEra = 'ERA_MEDIEVAL',
-        MinAreaSize = -1,
         NeverCapture = 1,
         ArtDefineTag = NULL,
         IconAtlas = 'BW_ATLAS_1',
@@ -73,10 +72,21 @@ SELECT  'TXT_KEY_BUILDING_PALISADES_HELP',
         'Military Units Supplied by this City''s population increased by 5%.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_BUILDING_PALISADES_STRATEGY',
-        '{TXT_KEY_BUILDING_PALISADES} increase city''s Defense Strength and Hit Points, making the city harder to capture on early-game. Also Increases Military Units supplied by this City''s population by 5%.[NEWLINE][NEWLINE]{TXT_KEY_BUILDING_PALISADES} are the first step in building a city''s defense along a civilization''s frontier.'
+        '{TXT_KEY_BUILDING_PALISADES} increase City''s Defense Strength and Hit Points, making the City harder to capture on early-game. Also Increases Military Units supplied by this City''s population by 5%.[NEWLINE]'||
+        '[NEWLINE]{TXT_KEY_BUILDING_PALISADES} are the first step in building a City''s defense along a civilization''s frontier.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_CIV5_BUILDINGS_PALISADES_TEXT',
-        'A palisade—sometimes called a stakewall or a paling—is typically a fence or wall made from wooden stakes or tree trunks and used as a defensive structure or enclosure.[NEWLINE][NEWLINE]Typical construction consisted of small or mid-sized tree trunks aligned vertically, with no free space in between. The trunks were sharpened or pointed at the top, and were driven into the ground and sometimes reinforced with additional construction. The height of a palisade ranged from a few feet to nearly ten feet. As a defensive structure, palisades were often used in conjunction with earthworks.[NEWLINE][NEWLINE]Palisades were an excellent option for small forts or other hastily constructed fortifications. Since they were made of wood, they could often be quickly and easily built from readily available materials. They proved to be effective protection for short-term conflicts and were an effective deterrent against small forces. However, because they were wooden constructions they were also vulnerable to fire and siege weapons.[NEWLINE][NEWLINE]Often, a palisade would be constructed around a castle as a temporary wall until a permanent stone wall could be erected. They were frequently used in New France.[NEWLINE][NEWLINE]Both the Greeks and Romans created palisades to protect their military camps. The Roman historian Livy describes the Greek method as being inferior to that of the Romans during the Second Macedonian War. The Greek stakes were too large to be easily carried and were spaced too far apart. This made it easy for enemies to uproot them and create a large enough gap in which to enter. In contrast, the Romans used smaller and easier to carry stakes which were placed closer together, making them more difficult to uproot.'
+        'A palisade—sometimes called a stakewall or a paling—is typically a fence or wall made from wooden stakes or tree trunks and used as a defensive structure or enclosure.[NEWLINE]'||
+        '[NEWLINE]Typical construction consisted of small or mid-sized tree trunks aligned vertically, with no free space in between. '||
+        'The trunks were sharpened or pointed at the top, and were driven into the ground and sometimes reinforced with additional construction. '||
+        'The height of a palisade ranged from a few feet to nearly ten feet. As a defensive structure, palisades were often used in conjunction with earthworks.[NEWLINE]'||
+        '[NEWLINE]Palisades were an excellent option for small forts or other hastily constructed fortifications. '||
+        'Since they were made of wood, they could often be quickly and easily built from readily available materials. '||
+        'They proved to be effective protection for short-term conflicts and were an effective deterrent against small forces. However, because they were wooden constructions they were also vulnerable to fire and siege weapons.[NEWLINE]'||
+        '[NEWLINE]Often, a palisade would be constructed around a castle as a temporary wall until a permanent stone wall could be erected. They were frequently used in New France.[NEWLINE]'||
+        '[NEWLINE]Both the Greeks and Romans created palisades to protect their military camps. The Roman historian Livy describes the Greek method as being inferior to that of the Romans during the Second Macedonian War. '||
+        'The Greek stakes were too large to be easily carried and were spaced too far apart. This made it easy for enemies to uproot them and create a large enough gap in which to enter. '||
+        'In contrast, the Romans used smaller and easier to carry stakes which were placed closer together, making them more difficult to uproot.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1);
 /*
 UPDATE  Language_en_US
@@ -103,7 +113,6 @@ UPDATE  Buildings SET
 
         -- Not so important bit
         PrereqTech = 'TECH_COMBINED_ARMS',
-        MinAreaSize = -1,
         NeverCapture = 1,
         ArtDefineTag = NULL,
         IconAtlas = 'BW_ATLAS_1',
@@ -129,10 +138,12 @@ SELECT  'TXT_KEY_BUILDING_WEAPONS_DEPOT_HELP',
         '+10[ICON_STRENGTH] Damage to Air Units during Air Strikes on City. Military Units Supplied by this City''s population increased by 50%.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_BUILDING_WEAPONS_DEPOT_STRATEGY',
-        'The {TXT_KEY_BUILDING_WEAPONS_DEPOT} is a building which increase City''s Defensive Strength and Hit Points. +20[ICON_STRENGTH] Damage to Air Units during Air Strikes on City. Increases Military Units supplied by this City''s population by 50%. The city must possess an {TXT_KEY_BUILDING_ARSENAL} before a {TXT_KEY_BUILDING_WEAPONS_DEPOT} can be constructed.'
+        'The {TXT_KEY_BUILDING_WEAPONS_DEPOT} is a building which increase City''s Defensive Strength and Hit Points. +10[ICON_STRENGTH] Damage to Air Units during Air Strikes on City. '||
+        'Increases Military Units supplied by this City''s population by 50%. The city must possess an {TXT_KEY_BUILDING_ARSENAL} before a {TXT_KEY_BUILDING_WEAPONS_DEPOT} can be constructed.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_CIV5_BUILDINGS_WEAPONS_DEPOT_TEXT',
-        'A {TXT_KEY_BUILDING_WEAPONS_DEPOT} is a larger and more extensive armory, containing an army''s bigger and more dangerous weapons systems - tanks, artillery, high-explosive ammunition, and so forth. Weapon Depots are even more heavily-guarded than armories, since nobody wants anybody stealing a tank or an 88-mm explosive shell.'
+        'A {TXT_KEY_BUILDING_WEAPONS_DEPOT} is a larger and more extensive armory, containing an army''s bigger and more dangerous weapons systems - tanks, artillery, high-explosive ammunition, and so forth. '||
+        'Weapon Depots are even more heavily-guarded than armories, since nobody wants anybody stealing a tank or an 88-mm explosive shell.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1);
 
 -- Defense Satellites
@@ -151,7 +162,6 @@ UPDATE  Buildings SET
 
         -- Not so important bit
         PrereqTech = 'TECH_SATELLITES',
-        MinAreaSize = -1,
         NeverCapture = 1,
         ArtDefineTag = NULL,
         IconAtlas = 'BCDMOD_ICON_ATLAS',
@@ -176,13 +186,30 @@ SELECT  'TXT_KEY_BUILDING_DEFENSE_SATELLITE',
         'Defense Satellites'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_BUILDING_DEFENSE_SATELLITE_HELP',
-        '+20[ICON_STRENGTH] Damage to Air Units during Air Strikes on City. Increase City''s [ICON_RANGE_STRENGTH] Ranged Strike Range by 2 and [ICON_RANGE_STRENGTH] Ranged Strike Damage by 15%. 20% chance to detonate nuclear weapons [COLOR_POSITIVE_TEXT]early[ENDCOLOR]. Early detonations destroy Atomic Bombs outright and make Nuclear Missiles only as effective as Atomic Bombs.[NEWLINE][NEWLINE]Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_DEFENSE_SATELLITE') || ' of these buildings in your empire.'
+        '+20[ICON_STRENGTH] Damage to Air Units during Air Strikes on City. Increase City''s [ICON_RANGE_STRENGTH] Ranged Strike Range by 2 and [ICON_RANGE_STRENGTH] Ranged Strike Damage by 15%.[NEWLINE]'||
+        '[NEWLINE]20% chance to detonate nuclear weapons [COLOR_POSITIVE_TEXT]early[ENDCOLOR]. Early detonations destroy Atomic Bombs outright and make Nuclear Missiles only as effective as Atomic Bombs.[NEWLINE]'||
+        '[NEWLINE]Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_DEFENSE_SATELLITE') || ' of these buildings in your empire.[NEWLINE]'||
+        '[NEWLINE]Requires 1 [ICON_RES_ALUMINUM] Aluminum.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_BUILDING_DEFENSE_SATELLITE_STRATEGY',
-        '{TXT_KEY_BUILDING_DEFENSE_SATELLITE} is a late-game building which increase a city''s Defense Strength and has the ability to defend against air units effectively. Increases the City''s [ICON_RANGE_STRENGTH] Ranged Strike Range by 2 and Damage by 15%, so it covers the whole 5-tile radius around the city, and also inflicts extra damage to the enemy. Also have a 20% chance to detonate nuclear weapons early, which destroys Atomic Bombs outright and makes Nuclear Missiles only as effective as Atomic Bombs. (with total of 70% chance when stacked with {TXT_KEY_BUILDING_BOMB_SHELTER}). The city must possess a {TXT_KEY_BUILDING_MILITARY_BASE} before {TXT_KEY_BUILDING_DEFENSE_SATELLITE} can be constructed. Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_DEFENSE_SATELLITE') || ' of these buildings in your empire, so make sure to place these buildings in strategic cities.[NEWLINE][NEWLINE]Requires 1 [ICON_RES_ALUMINUM] Aluminum.'
+        '{TXT_KEY_BUILDING_DEFENSE_SATELLITE} is a late-game building which increase a City''s Defense Strength and has the ability to defend against air units effectively. '||
+        'Increases the City''s [ICON_RANGE_STRENGTH] Ranged Strike Range by 2 and Damage by 15%, so it covers the whole 5-tile radius around the City, and also inflicts extra damage to the enemy. '||
+        'Also have a 20% chance to detonate nuclear weapons early, which destroys Atomic Bombs outright and makes Nuclear Missiles only as effective as Atomic Bombs (with total of 70% chance when stacked with {TXT_KEY_BUILDING_BOMB_SHELTER}). '||
+        'The city must possess a {TXT_KEY_BUILDING_MILITARY_BASE} before {TXT_KEY_BUILDING_DEFENSE_SATELLITE} can be constructed. '||
+        'Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_DEFENSE_SATELLITE') || ' of these buildings in your empire, so make sure to place these buildings in strategic cities.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_CIV5_BUILDINGS_DEFENSE_SATELLITE_TEXT',
-        '{TXT_KEY_BUILDING_DEFENSE_SATELLITE} are a type of military reconnaissance satellite designed to help safeguard cities by providing real-time data on the position of nearby enemy forces and their tactical capability. They provide detailed intelligence and dramatically decrease the response time of a city''s defense force, which can change the outcome of a siege.[NEWLINE][NEWLINE]The first military use of satellites was for reconnaissance. In the United States the first formal military satellite programs, Weapon System 117L, was developed in the mid 1950s. Within this program a number of sub-programs were developed including Corona. Satellites within the Corona program carried different code names. The first launches were code named Discoverer. This mission was a series of reconnaissance satellites, designed to enter orbit, take high-resolution photographs and then return the payload to Earth via parachute. Discoverer 1, the first mission, was launched on 28 February 1959 although it didn''t carry a payload being intended as a test flight to prove the technology. The Corona program continued until 25 May 1972. Corona was followed by other programs including Canyon (seven launches between 1968 and 1977), Aquacade and Orion (stated by US Government sources to be extremely large). There have also been a number of subsequent programs including Magnum and Trumpet, but these remain classified and therefore many details remain speculative.[NEWLINE][NEWLINE]The Soviet Union began the Almaz program in the early 1960s. This program involved placing space stations in Earth orbit as an alternative to satellites. Three stations were launched between 1973 and 1976: Salyut 2, Salyut 3 and Salyut 5. Following Salyut 5, the Soviet Ministry of Defence judged in 1978 that the time consumed by station maintenance outweighed the benefits relative to automatic reconnaissance satellites.'
+        '{TXT_KEY_BUILDING_DEFENSE_SATELLITE} are a type of military reconnaissance satellite designed to help safeguard cities by providing real-time data on the position of nearby enemy forces and their tactical capability. '||
+        'They provide detailed intelligence and dramatically decrease the response time of a City''s defense force, which can change the outcome of a siege.[NEWLINE]'||
+        '[NEWLINE]The first military use of satellites was for reconnaissance. In the United States the first formal military satellite programs, Weapon System 117L, was developed in the mid 1950s. '||
+        'Within this program a number of sub-programs were developed including Corona. Satellites within the Corona program carried different code names. The first launches were code named Discoverer. '||
+        'This mission was a series of reconnaissance satellites, designed to enter orbit, take high-resolution photographs and then return the payload to Earth via parachute. '||
+        'Discoverer 1, the first mission, was launched on 28 February 1959 although it didn''t carry a payload being intended as a test flight to prove the technology. The Corona program continued until 25 May 1972. '||
+        'Corona was followed by other programs including Canyon (seven launches between 1968 and 1977), Aquacade and Orion (stated by US Government sources to be extremely large). '||
+        'There have also been a number of subsequent programs including Magnum and Trumpet, but these remain classified and therefore many details remain speculative.[NEWLINE]'||
+        '[NEWLINE]The Soviet Union began the Almaz program in the early 1960s. This program involved placing space stations in Earth orbit as an alternative to satellites. '||
+        'Three stations were launched between 1973 and 1976: Salyut 2, Salyut 3 and Salyut 5. '||
+        'Following Salyut 5, the Soviet Ministry of Defence judged in 1978 that the time consumed by station maintenance outweighed the benefits relative to automatic reconnaissance satellites.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1);
 
 -- Satellite Network Headquarters
@@ -191,11 +218,10 @@ UPDATE  Buildings SET
         Cost = 400,
         NumCityCostMod = 30,
         GlobalDefenseMod = 10,
-        NationalPopRequired = 75,
+        NationalPopRequired = 70,
 
         -- Not so important bit
         PrereqTech = 'TECH_SATELLITES',
-        MinAreaSize = -1,
         NeverCapture = 1,
         IconAtlas = 'BCDMOD_ICON_ATLAS',
         PortraitIndex = 3
@@ -215,13 +241,17 @@ SELECT  'TXT_KEY_BUILDING_SATELLITE_NETWORK',
         'Satellite Network Headquarters'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_BUILDING_SATELLITE_NETWORK_HELP',
-        'Defensive buildings in all cities are 10% more effective.[NEWLINE][NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of cities you own.'
+        'Defensive buildings in all cities are 10% more effective.[NEWLINE]'||
+        '[NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of cities you own.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_BUILDING_SATELLITE_NETWORK_STRATEGY',
-        'With its large boost to city defenses, the {TXT_KEY_BUILDING_SATELLITE_NETWORK} is a great choice to help secure your cities when dealing with militaristic neighbors. This can indirectly aide in any type of victory. Build it in your heartland where it will likely be safe.'
+        'With its large boost to City defenses, the {TXT_KEY_BUILDING_SATELLITE_NETWORK} is a great choice to help secure your cities when dealing with militaristic neighbors. '||
+        'This can indirectly aide in any type of victory. Build it in your heartland where it will likely be safe.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1) UNION ALL
 SELECT  'TXT_KEY_CIV5_BUILDINGS_SATELLITE_NETWORK_TEXT',
-        'A Satellite Network Headquarters coordinates a state''s {TXT_KEY_BUILDING_DEFENSE_SATELLITE} to maximize their capabilities, allowing high level decisions to be made quickly to aide in a City''s defense. They contain the latest computer and satellite uplink technology, so that the decision makers on the ground can receive current information from the {TXT_KEY_BUILDING_DEFENSE_SATELLITE} and quickly issue orders in how to use the one on site to help protect a city. The facility is sometimes built underground for safety but its radio dishes are hard to disguise.'
+        'A Satellite Network Headquarters coordinates a state''s {TXT_KEY_BUILDING_DEFENSE_SATELLITE} to maximize their capabilities, allowing high level decisions to be made quickly to aide in a City''s defense. '||
+        'They contain the latest computer and satellite uplink technology, so that the decision makers on the ground can receive current information from the {TXT_KEY_BUILDING_DEFENSE_SATELLITE} and quickly issue orders in how to use the one on site to help protect a City. '||
+        'The facility is sometimes built underground for safety but its radio dishes are hard to disguise.'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 1);
 
 CREATE TRIGGER BCD_ClassesNeededInCity
