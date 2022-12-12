@@ -16,7 +16,7 @@
 [NEWLINE]
 [NEWLINE]Forked version made for VP 3.0 with additional mod compatibility made by N.Core.</Description>
     <Authors>Techpriest Enginseer, N.Core</Authors>
-    <SpecialThanks>thecrazyscotsman, framedarchitecture, lordplane, Tofusojo, Kelaris</SpecialThanks>
+    <SpecialThanks>thecrazyscotsman, framedarchitecture, lordplane, Kelaris</SpecialThanks>
     <AffectsSavedGames>true</AffectsSavedGames>
     <MinCompatibleSaveVersion>12</MinCompatibleSaveVersion>
     <SupportsSinglePlayer>true</SupportsSinglePlayer>
@@ -146,11 +146,6 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
-        <FileName>BetterCityDefenses/BetterCityDefenses.sql</FileName>
-      </Action>
-      <Action>
-        <Set>OnModActivated</Set>
-        <Type>UpdateDatabase</Type>
         <FileName>Brazilwood/Brazilcamp.sql</FileName>
       </Action>
       <Action>
@@ -259,13 +254,6 @@
         <MinVersion>0</MinVersion>
         <MaxVersion>999</MaxVersion>
       </Association>
-      <Association>
-        <Type>Mod</Type>
-        <Name>Better City Defenses</Name>
-        <Id>e2362613-52e1-4c65-83e4-607a0903b849</Id>
-        <MinVersion>0</MinVersion>
-        <MaxVersion>999</MaxVersion>
-      </Association>
     </ModBlockers>
     <ReloadStrategicViewSystem>true</ReloadStrategicViewSystem>
     <ReloadAudioSystem>true</ReloadAudioSystem>
@@ -286,8 +274,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="AddIndustrialBuilding\" />
-    <Folder Include="BetterCityDefenses\" />
-    <Folder Include="BetterCityDefenses\Art" />
     <Folder Include="Brazilwood\" />
     <Folder Include="Chateau\" />
     <Folder Include="IndustrialBuilding\" />
@@ -304,26 +290,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddIndustrialBuilding\AddIndustrialBuilding.sql">
-      <SubType>Lua</SubType>
-      <ImportIntoVFS>False</ImportIntoVFS>
-    </Content>
-    <Content Include="BetterCityDefenses\Art\BCDmodIconAtlas128.dds">
-      <SubType>Lua</SubType>
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="BetterCityDefenses\Art\BCDmodIconAtlas256.dds">
-      <SubType>Lua</SubType>
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="BetterCityDefenses\Art\BCDmodIconAtlas45.dds">
-      <SubType>Lua</SubType>
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="BetterCityDefenses\Art\BCDmodIconAtlas64.dds">
-      <SubType>Lua</SubType>
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="BetterCityDefenses\BetterCityDefenses.sql">
       <SubType>Lua</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>

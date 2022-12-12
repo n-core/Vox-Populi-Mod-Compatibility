@@ -28,6 +28,7 @@ SELECT  'BUILDING_SYNTHFUEL_PLANT', 'BUILDINGCLASS_SYNTHFUEL_PLANT', 'YIELD_PROD
 --=====================================================================================================--
 -- Oil Refinery and Synthetic Fuel Manufactory now are mutually exclusive buildings
 -- and both gives 1 slot of Engineer specialist.
+--=====================================================================================================--
 UPDATE Buildings SET
 SpecialistCount = '1', SpecialistType = 'SPECIALIST_ENGINEER',
 MutuallyExclusiveGroup = 710, PrereqTech = 'TECH_BIOLOGY'
@@ -68,8 +69,8 @@ WHERE Tag = 'TXT_KEY_BUILDING_SYNTHFUEL_PLANT_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOREINDUSTRIAL' AND Value= 1);
 
 --=====================================================================================================--
--- Weapons Factory and Munition Factory now both act as a building focused
--- solely on military unit creation with only limited amount of it in the Empire.
+-- Weapons Factory and Munition Factory now both act as a building focused solely
+-- on military unit creation with only limited amount of it in the Empire.
 --=====================================================================================================--
 -- Weapons Factory and Munition Factory now requires Factory instead of Workshop
 -- (Both of them are *Factory*!)
@@ -132,7 +133,7 @@ WHERE BuildingType IN ('BUILDING_WEAPONS_FACTORY', 'BUILDING_MUNITIONS_FACTORY')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOREINDUSTRIAL' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = '+3 [ICON_PRODUCTION] Production, and +2 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_WEAPONS_FACTORY} and {TXT_KEY_BUILDING_MUNITIONS_FACTORY} in the Empire. +10% [ICON_PRODUCTION] Production towards Melee Units and Fighter Units. Increases the Military Unit Supply Cap by 1.[NEWLINE]
+Text = '+3 [ICON_PRODUCTION] Production, and +2 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_WEAPONS_FACTORY} and {TXT_KEY_BUILDING_MUNITIONS_FACTORY} in the Empire. +10% [ICON_PRODUCTION] Production towards all Melee Units and Fighter Units. Increases [ICON_SILVER_FIST] Military Unit Supply Cap by 1.[NEWLINE]
 [NEWLINE]When you construct a Unit in this City, gain [ICON_PRODUCTION] Production equal to 20% of the Unit''s [ICON_PRODUCTION] Production cost.[NEWLINE]
 [NEWLINE]The city must already possess a {TXT_KEY_BUILDING_FACTORY} before {TXT_KEY_BUILDING_WEAPONS_FACTORY} can be constructed, have an improved source of [ICON_RES_IRON] Iron, and cannot have a [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_MUNITIONS_FACTORY}[ENDCOLOR] already built.[NEWLINE]
 [NEWLINE]Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_WEAPONS_FACTORY') || ' of these buildings in your Empire.'
@@ -140,7 +141,7 @@ WHERE Tag = 'TXT_KEY_BUILDING_WEAPONS_FACTORY_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOREINDUSTRIAL' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = '+3 [ICON_PRODUCTION] Production, and +2 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_MUNITIONS_FACTORY} and {TXT_KEY_BUILDING_WEAPONS_FACTORY} in the Empire. +10% [ICON_PRODUCTION] Production towards Ranged Units and Bomber Units. Increases the Military Unit Supply Cap by 1.[NEWLINE]
+Text = '+3 [ICON_PRODUCTION] Production, and +2 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_MUNITIONS_FACTORY} and {TXT_KEY_BUILDING_WEAPONS_FACTORY} in the Empire. +10% [ICON_PRODUCTION] Production towards all Ranged Units and Bomber Units. Increases [ICON_SILVER_FIST] Military Unit Supply Cap by 1.[NEWLINE]
 [NEWLINE]When you construct a Unit in this City, gain [ICON_PRODUCTION] Production equal to 20% of the Unit''s [ICON_PRODUCTION] Production cost.[NEWLINE]
 [NEWLINE]The city must already possess a {TXT_KEY_BUILDING_FACTORY} before {TXT_KEY_BUILDING_MUNITIONS_FACTORY} can be constructed, have an improved source of [ICON_RES_ALUMINUM] Aluminum, and cannot have a [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_WEAPONS_FACTORY}[ENDCOLOR] already built.[NEWLINE]
 [NEWLINE]Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_MUNITIONS_FACTORY') || ' of these buildings in your Empire.'

@@ -1,5 +1,5 @@
 INSERT INTO Language_en_US (Text, Tag)
-SELECT '+25% [ICON_GREAT_PEOPLE] Great People generation in this City. +1 [ICON_CULTURE] from Desert Tile. +1 [ICON_HAPPINESS_1] Happiness.[NEWLINE]Nearby Oases: +2 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_CITRUS] Citrus: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_COCOA] Cocoa: +1 [ICON_FOOD] Food, +1 [ICON_GOLD]' , 'TXT_KEY_BUILDING_RIAD_HELP'
+SELECT '+25% [ICON_GREAT_PEOPLE] Great People generation in this City. +1 [ICON_CULTURE] from Desert Tiles. +1 [ICON_HAPPINESS_1] Happiness.[NEWLINE]Nearby Oases: +2 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_CITRUS] Citrus: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_COCOA] Cocoa: +1 [ICON_FOOD] Food, +1 [ICON_GOLD]' , 'TXT_KEY_BUILDING_RIAD_HELP'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_KASBAH' AND Value= 1);
 
 UPDATE Language_EN_US

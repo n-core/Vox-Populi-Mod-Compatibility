@@ -191,19 +191,6 @@ SET Value = '1'
 WHERE Type = 'CBPMC_MOREINDUSTRIAL' AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_OIL_REFINERY') AND NOT EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOREINDUSTRIAL' AND Value= 0);
 
 /*
-Better City Defenses!
-0 = Disabled (Default)
-1 = Enabled
-*/
-
-INSERT INTO COMMUNITY (Type, Value)
-VALUES ('CBPMC_DEFENSES', 0);
-
-UPDATE COMMUNITY
-SET Value = '1'
-WHERE Type = 'CBPMC_DEFENSES' AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_PALISADES') AND NOT EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_DEFENSES' AND Value= 0);
-
-/*
 Strategic Resource Buildings!
 0 = Disabled disregarding if its detects the Strategic Resource Buildings by Kelaris.
 1 = Enabled if it detects the Strategic Resource Buildings by Kelaris and CBP.

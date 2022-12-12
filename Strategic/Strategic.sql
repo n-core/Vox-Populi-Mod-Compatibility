@@ -33,7 +33,7 @@ BEGIN
 END;
 
 UPDATE Language_en_US SET
-Text = '+2 [ICON_CULTURE] Culture. +1 [ICON_HAPPINESS_1] Happiness and [ICON_CULTURE] Culture to all owned {TXT_KEY_BUILDING_STABLE}. +1 [ICON_CULTURE] Culture from all owned {TXT_KEY_BUILDING_STABLE}. +2 [ICON_TOURISM] Tourism when you researched [COLOR_CYAN]{TXT_KEY_TECH_ECOLOGY}[ENDCOLOR].[NEWLINE]
+Text = '+2 [ICON_CULTURE] Culture. +1 [ICON_HAPPINESS_1] Happiness and [ICON_CULTURE] Culture to all owned {TXT_KEY_BUILDING_STABLE}. +1 [ICON_CULTURE] Culture from all owned {TXT_KEY_BUILDING_STABLE}. +2 [ICON_TOURISM] Tourism when you researched [COLOR_CYAN]{TXT_KEY_TECH_ECOLOGY_TITLE}[ENDCOLOR].[NEWLINE]
 [NEWLINE]Requires 1 [ICON_RES_HORSE] Horse.[NEWLINE]
 [NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of Cities you own.'
 WHERE Tag = 'TXT_KEY_BUILDING_EQUESTRIANART_HELP'
@@ -47,8 +47,7 @@ HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILD
 WHERE Type = 'BUILDING_RACING_COURSE'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
-UPDATE Building_YieldChanges SET
-Yield = 0
+DELETE FROM Building_YieldChanges
 WHERE BuildingType = 'BUILDING_RACING_COURSE'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
@@ -65,7 +64,7 @@ WHERE Type = 'BUILDINGCLASS_STEELMILL'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Buildings SET
-ConquestProb = 0, NeverCapture = 1,
+ConquestProb = 0, NeverCapture = 1, NumCityCostMod = 2,
 Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_FACTORY'),
 GoldMaintenance = (SELECT GoldMaintenance FROM Buildings WHERE Type = 'BUILDING_FACTORY'),
 HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILDING_FACTORY')
@@ -77,11 +76,11 @@ SELECT  'BUILDING_STEELMILL', 'BUILDINGCLASS_WORKSHOP'
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 INSERT INTO Building_BuildingClassYieldChanges
-SELECT  'BUILDING_STEELMILL', 'BUILDINGCLASS_STEELMILL', 'YIELD_PRODUCTION', 3
+SELECT  'BUILDING_STEELMILL', 'BUILDINGCLASS_STEELMILL', 'YIELD_PRODUCTION', 2
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 INSERT INTO Building_GlobalYieldModifiers
-SELECT  'BUILDING_STEELMILL', 'YIELD_PRODUCTION', 1
+SELECT  'BUILDING_STEELMILL', 'YIELD_PRODUCTION', 2
         WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Building_YieldChanges SET
@@ -99,8 +98,9 @@ WHERE BuildingType = 'BUILDING_STEELMILL'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = '+1% [ICON_PRODUCTION] Production in all Cities. +5 [ICON_PRODUCTION] Production, and +3 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_STEELMILL} in the Empire.[NEWLINE]
+Text = '+2% [ICON_PRODUCTION] Production for all Cities. +5 [ICON_PRODUCTION] Production, and +2 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_STEELMILL} in the Empire.[NEWLINE]
 [NEWLINE]Requires 1 [ICON_RES_IRON] Iron.[NEWLINE]
+[NEWLINE]The [ICON_PRODUCTION] Production Cost increase based on the number of cities you own.[NEWLINE]
 [NEWLINE]Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_STEELMILL') || ' of these buildings in your Empire.'
 WHERE Tag = 'TXT_KEY_BUILDING_STEELMILL_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
