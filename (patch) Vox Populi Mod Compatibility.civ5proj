@@ -8,17 +8,19 @@
     <ModVersion>23</ModVersion>
     <Stability>Stable</Stability>
     <Teaser>Compatibility patch for the following mods in the References for the Vox Populi.</Teaser>
-    <Description>Download the Vox Populi here: [NEWLINE]http://forums.civfanatics.com/showthread.php?t=528034
+    <Description>Download Vox Populi here: [NEWLINE]http://forums.civfanatics.com/showthread.php?t=528034
 [NEWLINE]
 [NEWLINE]This mod is a componental mod.
 [NEWLINE]Use the CompatibilityOptions.sql to change the component options.
 [NEWLINE]
+[NEWLINE][ICON_BULLET] [COLOR:235:200:70:255]Vox Populi Mod Compatibility[ENDCOLOR] - v23
+[NEWLINE]Almost all buildings stats has been overhauled to a better one. Combining all of these buildings in one game will resulting in unbalanced gameplay, so use it wisely if you only want balanced gameplay!
 [NEWLINE]
 [NEWLINE]Forked version made for VP 3.0 with additional mod compatibility made by N.Core.</Description>
     <Authors>Techpriest Enginseer, N.Core</Authors>
     <SpecialThanks>thecrazyscotsman, framedarchitecture, lordplane, Kelaris</SpecialThanks>
     <AffectsSavedGames>true</AffectsSavedGames>
-    <MinCompatibleSaveVersion>12</MinCompatibleSaveVersion>
+    <MinCompatibleSaveVersion>23</MinCompatibleSaveVersion>
     <SupportsSinglePlayer>true</SupportsSinglePlayer>
     <SupportsMultiplayer>false</SupportsMultiplayer>
     <SupportsHotSeat>false</SupportsHotSeat>

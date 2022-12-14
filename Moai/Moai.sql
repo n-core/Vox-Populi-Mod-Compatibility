@@ -1,5 +1,5 @@
 UPDATE Buildings SET
-ReligiousUnrestFlatReduction = 1, ReligiousPressureModifier = 25, Happiness = 0, Help = 'TXT_KEY_BUILDING_MARA_HELP',
+ReligiousUnrestFlatReduction = 1, BoredomFlatReduction = 1, ReligiousPressureModifier = 25, Happiness = 0, Help = 'TXT_KEY_BUILDING_MARA_HELP',
 GreatWorkSlotType = (SELECT GreatWorkSlotType FROM Buildings WHERE Type = 'BUILDING_TEMPLE'),
 GreatWorkCount = (SELECT GreatWorkCount FROM Buildings WHERE Type = 'BUILDING_TEMPLE'),
 Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_TEMPLE'),
@@ -8,8 +8,12 @@ HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILD
 WHERE Type = 'BUILDING_MARA' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 UPDATE Building_Flavors
-SET Flavor = '30'
+SET Flavor = 30
 WHERE BuildingType = 'BUILDING_MARA' AND FlavorType = 'FLAVOR_CULTURE' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
+
+INSERT INTO Building_YieldChanges (BuildingType, YieldType, Yield)
+SELECT 'BUILDING_MARA', 'YIELD_CULTURE', 2
+WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 INSERT INTO Building_ResourceYieldChanges (BuildingType, ResourceType, YieldType, Yield)
 SELECT 'BUILDING_MARA', 'RESOURCE_INCENSE', 'YIELD_CULTURE', 1 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1) UNION ALL
@@ -19,13 +23,25 @@ SELECT 'BUILDING_MARA', 'RESOURCE_WINE', 'YIELD_FAITH', 1 WHERE EXISTS (SELECT *
 SELECT 'BUILDING_MARA', 'RESOURCE_AMBER', 'YIELD_CULTURE', 1 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1) UNION ALL
 SELECT 'BUILDING_MARA', 'RESOURCE_AMBER', 'YIELD_FAITH', 1 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
+INSERT INTO Building_ImprovementYieldChanges (BuildingType, ImprovementType, YieldType, Yield)
+SELECT 'BUILDING_MARA', 'IMPROVEMENT_MOAI', 'YIELD_CULTURE', 1
+WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
+
+DELETE FROM Building_SeaPlotYieldChanges
+WHERE BuildingType = 'BUILDING_MARA'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
+
+INSERT INTO Building_TerrainYieldChanges (BuildingType, TerrainType, YieldType, Yield)
+SELECT 'BUILDING_MARA', 'TERRAIN_COAST', 'YIELD_CULTURE', 1
+WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
+
 INSERT INTO Language_en_US (Text, Tag)
-SELECT 'Generates +25% Religious Pressure. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. +1 [ICON_CULTURE] Culture from Coast tiles worked by the City.[NEWLINE]
-[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_PEACE] Religious Unrest.[NEWLINE]
+SELECT 'Generates +25% Religious Pressure. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. +1 [ICON_CULTURE] Culture from Coast tiles and Moais worked by the City.[NEWLINE]
+[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_PEACE] Religious Unrest and [ICON_CULTURE] Boredom.[NEWLINE]
 [NEWLINE]Nearby [ICON_RES_INCENSE] Incense: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.[NEWLINE]Nearby [ICON_RES_WINE] Wine: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.[NEWLINE]Nearby [ICON_RES_AMBER] Amber: +1 [ICON_CULTURE] Culture, +1 [ICON_GOLD] Gold.',
 'TXT_KEY_BUILDING_MARA_HELP'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 UPDATE Language_EN_US
-SET Text = 'Unique {TXT_KEY_CIV_POLYNESIA_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_TEMPLE}. Helps reduce [ICON_HAPPINESS_3] Religious Unrest and generates +25% Religious Pressure. It also provides [ICON_CULTURE] Culture bonus to every Coast tiles worked by the city. The city must contain a {TXT_KEY_BUILDING_SHRINE} before the {TXT_KEY_BUILDING_MARA_DESC} can be constructed.'
+SET Text = 'Unique {TXT_KEY_CIV_POLYNESIA_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_TEMPLE}. Helps reduce [ICON_HAPPINESS_3] Religious Unrest and Boredom, and generates +25% Religious Pressure. It also provides [ICON_CULTURE] Culture bonus to every Coast tiles worked by the city. The City must have a {TXT_KEY_BUILDING_SHRINE} before the {TXT_KEY_BUILDING_MARA_DESC} can be constructed.'
 WHERE Tag = 'TXT_KEY_BUILDING_MARA_STRATEGY' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
