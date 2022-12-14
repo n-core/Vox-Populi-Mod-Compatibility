@@ -93,20 +93,6 @@
       </Association>
       <Association>
         <Type>Mod</Type>
-        <Name>Pontoon Bridge</Name>
-        <Id>b7a37b4b-0e52-49b3-b0d3-e933820b26d0</Id>
-        <MinVersion>0</MinVersion>
-        <MaxVersion>999</MaxVersion>
-      </Association>
-      <Association>
-        <Type>Mod</Type>
-        <Name>Alternative Pontoon Bridge</Name>
-        <Id>2b0246ea-ea12-460c-9b64-e58575a30e5c</Id>
-        <MinVersion>0</MinVersion>
-        <MaxVersion>999</MaxVersion>
-      </Association>
-      <Association>
-        <Type>Mod</Type>
         <Name>Strategic Buildings</Name>
         <Id>b7daf00d-35e5-4f14-9ed6-8558c138a29c</Id>
         <MinVersion>0</MinVersion>
