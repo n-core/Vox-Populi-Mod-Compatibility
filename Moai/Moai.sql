@@ -37,7 +37,7 @@ WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 INSERT INTO Language_en_US (Text, Tag)
 SELECT 'Generates +25% Religious Pressure. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. +1 [ICON_CULTURE] Culture from Coast tiles and Moais worked by the City.[NEWLINE]
-[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_PEACE] Religious Unrest and [ICON_CULTURE] Boredom.[NEWLINE]
+[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_RELIGION] Religious Unrest and [ICON_CULTURE] Boredom.[NEWLINE]
 [NEWLINE]Nearby [ICON_RES_INCENSE] Incense: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.[NEWLINE]Nearby [ICON_RES_WINE] Wine: +1 [ICON_CULTURE] Culture, +1 [ICON_PEACE] Faith.[NEWLINE]Nearby [ICON_RES_AMBER] Amber: +1 [ICON_CULTURE] Culture, +1 [ICON_GOLD] Gold.',
 'TXT_KEY_BUILDING_MARA_HELP'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);

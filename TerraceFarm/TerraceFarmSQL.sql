@@ -39,7 +39,7 @@ WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type = 'CBPMC_TERRACE_FARM' AND Valu
 INSERT INTO Language_en_US (Tag, Text)
 SELECT 'TXT_KEY_BUILDING_STEMPLES_HELP',
 'Generates +25% Religious Pressure. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. +1 [ICON_PEACE] Faith from Terrace Farms and Mountains.[NEWLINE]
-[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_PEACE] Religious Unrest.[NEWLINE]
+[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_RELIGION] Religious Unrest.[NEWLINE]
 [NEWLINE]Nearby [ICON_RES_INCENSE] Incense: +1 [ICON_CULTURE] Culture, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_WINE] Wine: +1 [ICON_CULTURE] Culture, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_AMBER] Amber: +1 [ICON_CULTURE] Culture, +1 [ICON_GOLD] Gold.'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_TERRACE_FARM' AND Value= 1 );
 
