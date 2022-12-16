@@ -30,7 +30,7 @@ AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
 INSERT INTO Building_LocalResourceOrs (BuildingType, ResourceType)
 SELECT  'BUILDING_RANCH', Type FROM Resources
-WHERE Type IN ('RESOURCE_COW', 'RESOURCE_HORSE', 'RESOURCE_SHEEP', 'RESOURCE_BISON')
+WHERE Type IN ('RESOURCE_COW', 'RESOURCE_HORSE', 'RESOURCE_SHEEP')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type = 'CBPMC_INDUSTRIAL' AND Value= 1);
 
 INSERT INTO Building_UnitCombatProductionModifiers
@@ -47,11 +47,6 @@ INSERT INTO Building_YieldFromBirth (BuildingType, YieldType, Yield)
 SELECT 'BUILDING_RANCH', 'YIELD_PRODUCTION', 5
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-INSERT INTO Building_ResourceYieldChanges (BuildingType, ResourceType, YieldType, Yield)
-SELECT 'BUILDING_RANCH', 'RESOURCE_BISON', Type, 1 FROM Yields
-WHERE Type IN ('YIELD_GOLD', 'YIELD_FOOD')
-AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
-
 UPDATE Building_Flavors
 SET Flavor = 20
 WHERE BuildingType = 'BUILDING_RANCH' AND FlavorType IN ('FLAVOR_GOLD', 'FLAVOR_PRODUCTION')
@@ -67,7 +62,7 @@ UPDATE Language_EN_US
 SET Text = '+10% [ICON_PRODUCTION] Production when building Worker and Settler units.[NEWLINE]
 [NEWLINE]Gain 5 [ICON_PRODUCTION] Production whenever a [ICON_CITIZEN] Citizen is born in the City, scaling with Era.[NEWLINE]
 [NEWLINE]Internal [ICON_PRODUCTION] Production [ICON_INTERNATIONAL_TRADE] Trade Routes from this City generate +1 [ICON_FOOD] Food and [ICON_PRODUCTION] Production.[NEWLINE]
-[NEWLINE]Nearby [ICON_RES_HORSE] Horse: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_SHEEP] Sheep: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_COW] Cow: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_BISON] Bison: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.'
+[NEWLINE]Nearby [ICON_RES_HORSE] Horse: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_SHEEP] Sheep: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_COW] Cow: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.'
 WHERE Tag = 'TXT_KEY_BUILDING_RANCH_HELP' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
 -- Update Homestead (America's UB) from More Unique Components for VP
@@ -103,7 +98,7 @@ AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
 UPDATE  Language_en_US SET
-Text = REPLACE(Text, 'The Homestead boosts Bison in addition to all the resources normally boosted by a Stable, and all boosted resources gain additional food.', 'The {TXT_KEY_BUILDING_AMERICA_RANCH} gives additional Production boosts to all the resources normally boosted by a {TXT_KEY_BUILDING_RANCH}, and all boosted resources gain additional yields. Increases Military Units supplied by this City''s population by 10%. ')
+Text = REPLACE(Text, 'The Homestead boosts Bison in addition to all the resources normally boosted by a Stable, and all boosted resources gain additional food.', 'The {TXT_KEY_BUILDING_AMERICA_RANCH} gives additional Production boosts to all the resources normally boosted by a {TXT_KEY_BUILDING_RANCH} and also [ICON_RES_BISON] Bison, and all boosted resources gain additional yields. Increases Military Units supplied by this City''s population by 10%. ')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_STRATEGY'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);

@@ -13,7 +13,7 @@ WHERE Tag = 'TXT_KEY_BUILDING_IRONWORKS_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Buildings SET
-Cost = 125, NumCityCostMod = 10, NationalPopRequired = 40, BoredomFlatReduction = 1, TechEnhancedTourism = 5, PrereqTech = 'TECH_ARCHAEOLOGY'
+Cost = 125, NumCityCostMod = 10, NationalPopRequired = 40, BoredomFlatReduction = 1, TechEnhancedTourism = 10, PrereqTech = 'TECH_ARCHAEOLOGY'
 WHERE Type = 'BUILDING_SCHOOL_OF_EQUESTRIAN_ART'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
@@ -53,7 +53,7 @@ BEGIN
 END;
 
 UPDATE Language_en_US SET
-Text = '+2 [ICON_CULTURE] Culture. +5 [ICON_TOURISM] Tourism when you researched [COLOR_CYAN]{TXT_KEY_TECH_ECOLOGY_TITLE}[ENDCOLOR].[NEWLINE]
+Text = '+2 [ICON_CULTURE] Culture. +10 [ICON_TOURISM] Tourism after you researched [COLOR_CYAN]{TXT_KEY_TECH_ECOLOGY_TITLE}[ENDCOLOR].[NEWLINE]
 [NEWLINE]+1 [ICON_CULTURE] Culture and [ICON_TOURISM] Tourism to all owned {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s. +2 [ICON_CULTURE] Culture from all owned {TXT_KEY_BUILDING_STABLE}s.[NEWLINE]
 [NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom.[NEWLINE]
 [NEWLINE]Requires 1 [ICON_RES_HORSE] Horse.[NEWLINE]

@@ -56,7 +56,7 @@ WHERE Type IN ('YIELD_GOLD', 'YIELD_CULTURE')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_KASBAH' AND Value= 1);
 
 INSERT INTO Language_en_US (Text, Tag)
-SELECT '+3 [ICON_PEACE] Faith. 5% of the City''s [ICON_PEACE] Faith converted into [ICON_GOLD] Gold and [ICON_CULTURE] Culture every turn. +1 [ICON_PEACE] Faith every 2 Desert tiles worked by the City. +1 [ICON_PEACE] Faith and [ICON_CULTURE] Culture from Kasbahs.[NEWLINE]
+SELECT '+3 [ICON_PEACE] Faith. 5% of the City''s [ICON_PEACE] Faith converted into [ICON_GOLD] Gold and [ICON_CULTURE] Culture every turn. +1 [ICON_PEACE] Faith for every 2 Desert tiles within the workable tile. +1 [ICON_PEACE] Faith and [ICON_CULTURE] Culture from Kasbahs.[NEWLINE]
 [NEWLINE]Incoming [ICON_INTERNATIONAL_TRADE] Trade Routes generate +1 [ICON_GOLD] Gold for the City, and +1 [ICON_GOLD] Gold for [ICON_INTERNATIONAL_TRADE] Trade Route owner.[NEWLINE]
 [NEWLINE][ICON_SILVER_FIST] Military Units Supplied by this City''s population increased by 10%. Allows the City''s [ICON_RANGE_STRENGTH] Ranged Strike to ignore Line of Sight.[NEWLINE][NEWLINE]Garrisoned Units receive an additional 5 Health when healing in this City.[NEWLINE]
 [NEWLINE][ICON_CITY_STATE] Empire Size Modifier is reduced by 5% in this City.' , 'TXT_KEY_BUILDING_RIAD_HELP'
@@ -68,7 +68,7 @@ WHERE Tag = 'TXT_KEY_BUILDING_RIAD_DESC' AND EXISTS (SELECT * FROM COMMUNITY WHE
 
 UPDATE Language_EN_US
 SET Text = 'Unique {TXT_KEY_CIV_MOROCCO_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_FORTRESS}. '||
-'In addition to the regular abilities of a {TXT_KEY_BUILDING_FORTRESS}, The {TXT_KEY_BUILDING_RIAD_DESC} provides [ICON_PEACE] Faith and converts small percentage of it into [ICON_GOLD] Gold and [ICON_CULTURE] Culture every turn. '||
+'In addition to the regular abilities of a {TXT_KEY_BUILDING_FORTRESS}, the {TXT_KEY_BUILDING_RIAD_DESC} provides [ICON_PEACE] Faith and converts small percentage of it into [ICON_GOLD] Gold and [ICON_CULTURE] Culture every turn. '||
 'It also greatly boosts the value of Trade Routes that target the City. Provides [ICON_PEACE] Faith and [ICON_CULTURE] Culture bonus to Kasbahs.'
 WHERE Tag = 'TXT_KEY_BUILDING_RIAD_STRATEGY' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_KASBAH' AND Value= 1);
 

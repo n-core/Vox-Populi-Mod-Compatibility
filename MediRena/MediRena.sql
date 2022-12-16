@@ -64,7 +64,7 @@ SELECT 'BUILDING_APOTHECARY', 'YIELD_FOOD', 20
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
 INSERT INTO Building_YieldFromYieldPercent (BuildingType, YieldIn, YieldOut, Value)
-SELECT 'BUILDING_APOTHECARY', 'YIELD_FOOD', 'YIELD_SCIENCE', 10
+SELECT 'BUILDING_APOTHECARY', 'YIELD_FOOD', 'YIELD_SCIENCE', 5
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
 UPDATE Language_en_US
@@ -73,14 +73,14 @@ WHERE Tag = 'TXT_KEY_BUILDING_APOTHECARY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
 UPDATE Language_en_US
-SET Text = '+1 [ICON_FOOD] Food and [ICON_RESEARCH] Science. 10% of the City''s [ICON_FOOD] Food converted into [ICON_RESEARCH] Science every turn. '||
+SET Text = '+1 [ICON_FOOD] Food and [ICON_RESEARCH] Science. 5% of the City''s [ICON_FOOD] Food converted into [ICON_RESEARCH] Science every turn. '||
 '+20% of the [ICON_FOOD] Food of the City is added to the current [ICON_FOOD] Food total when a [ICON_CITIZEN] Citizen is born in this City.'
 WHERE Tag = 'TXT_KEY_BUILDING_APOTHECARY_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
 UPDATE Language_en_US
-SET Text = 'The word "dispensary" is in common use today to describe a place or room where drugs are stored, made up according to prescriptions, and dispensed.'||
-'While it always had this meaning, it was also used to describe "a charitable institution where medicines are dispensed and medical advice given gratis or for a small charge."'||
+SET Text = 'The word "dispensary" is in common use today to describe a place or room where drugs are stored, made up according to prescriptions, and dispensed. '||
+'While it always had this meaning, it was also used to describe "a charitable institution where medicines are dispensed and medical advice given gratis or for a small charge." '||
 'These institutions provided care on an outpatient basis, including home visiting, and, in their general economy, they resembled in many ways the health centers of today.'
 WHERE Tag = 'TXT_KEY_BUILDING_APOTHECARY_PEDIA'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
@@ -94,7 +94,7 @@ WHERE Type = 'BUILDING_ALCHEMIST'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
 INSERT INTO Building_YieldFromYieldPercent (BuildingType, YieldIn, YieldOut, Value)
-SELECT 'BUILDING_ALCHEMIST', 'YIELD_SCIENCE', 'YIELD_FAITH', 15
+SELECT 'BUILDING_ALCHEMIST', 'YIELD_SCIENCE', 'YIELD_FAITH', 10
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
 UPDATE Building_ResourceYieldChanges
@@ -117,8 +117,9 @@ WHERE BuildingType = 'BUILDING_ALCHEMIST' AND FlavorType = 'FLAVOR_GROWTH'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
 UPDATE Language_en_US
-SET Text = '15% of the City''s [ICON_RESEARCH] Science converted into [ICON_PEACE] Faith every turn.[NEWLINE]
-[NEWLINE]Nearby [ICON_RES_GEMS] Gems: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_GOLD] Gold: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_SILVER] Silver: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_AMBER] Amber: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_JADE] Jade: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_LAPIS] Lapis Lazuli: +1 [ICON_RESEARCH] Science.'
+SET Text = '10% of the City''s [ICON_RESEARCH] Science converted into [ICON_PEACE] Faith every turn.[NEWLINE]
+[NEWLINE]Nearby [ICON_RES_GEMS] Gems: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_GOLD] Gold: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_SILVER] Silver: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_AMBER] Amber: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_JADE] Jade: +1 [ICON_RESEARCH] Science.[NEWLINE]Nearby [ICON_RES_LAPIS] Lapis Lazuli: +1 [ICON_RESEARCH] Science.[NEWLINE]
+[NEWLINE]City must have at least one of these resources improved.'
 WHERE Tag = 'TXT_KEY_BUILDING_ALCHEMIST_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MEDIRENA' AND Value= 1);
 
