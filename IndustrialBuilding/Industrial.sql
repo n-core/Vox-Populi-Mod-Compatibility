@@ -97,43 +97,43 @@ WHERE BuildingType = 'BUILDING_AMERICA_RANCH' AND UnitCombatType = 'UNITCOMBAT_M
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, 'The Homestead boosts Bison in addition to all the resources normally boosted by a Stable, and all boosted resources gain additional food.', 'The {TXT_KEY_BUILDING_AMERICA_RANCH} gives additional Production boosts to all the resources normally boosted by a {TXT_KEY_BUILDING_RANCH} and also [ICON_RES_BISON] Bison, and all boosted resources gain additional yields. Increases Military Units supplied by this City''s population by 10%. ')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_STRATEGY'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, '. In addition to the regular abilities', ' which unlocked at a full era earlier than {TXT_KEY_BUILDING_RANCH} and does not require a {TXT_KEY_BUILDING_STABLE} to be constructed. In addition to the regular abilities')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_STRATEGY'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, 'The Homestead boosts the production of workers and settler units', 'The {TXT_KEY_BUILDING_AMERICA_RANCH} also gives additional boosts to the production of workers and settler units')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_STRATEGY'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, 'Homestead', '{TXT_KEY_BUILDING_AMERICA_RANCH}')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_STRATEGY'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, 'Stable', '{TXT_KEY_BUILDING_RANCH}')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_STRATEGY'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, '+33% [ICON_PRODUCTION] Production when building Mounted Units and ', '')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_HELP'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, 'Trade Routes from this City generate +2 [ICON_PRODUCTION] Production', 'Trade Routes from this City generate +1 [ICON_FOOD] Food and [ICON_PRODUCTION] Production')
 WHERE Tag = 'TXT_KEY_BUILDING_AMERICA_RANCH_HELP'
 AND EXISTS (SELECT * FROM Buildings WHERE Type='BUILDING_AMERICA_RANCH')
@@ -171,12 +171,12 @@ SELECT 'The Chemist is a Industrial-era building which provides [ICON_RESEARCH] 
 'TXT_KEY_BUILDING_CHEMIST_STRATEGY'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-INSERT INTO Building_BuildingClassYieldChanges
-SELECT DISTINCT BuildingType, 'BUILDINGCLASS_CHEMIST', YieldType, YieldChange FROM Building_BuildingClassYieldChanges
+INSERT INTO Building_BuildingClassLocalYieldChanges
+SELECT DISTINCT BuildingType, 'BUILDINGCLASS_CHEMIST', YieldType, YieldChange FROM Building_BuildingClassLocalYieldChanges
 WHERE BuildingType = 'BUILDING_LABORATORY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
-UPDATE  Language_en_US SET
+UPDATE Language_en_US SET
 Text = REPLACE(Text, 'Hospitals', 'Chemists, Hospitals')
 WHERE Tag = 'TXT_KEY_BUILDING_LABORATORY_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
