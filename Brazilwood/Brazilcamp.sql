@@ -84,7 +84,7 @@ WHERE Tag = 'TXT_BUILDING_JCHURCH_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
 INSERT INTO Language_en_US (Text, Tag)
-SELECT '+1 [ICON_CULTURE] Culture for every 3 Jungle or 3 Forest tiles within the workable plot.[NEWLINE]
+SELECT '+1 [ICON_CULTURE] Culture for every 3 Jungle or 3 Forest tiles worked by the City.[NEWLINE]
 [NEWLINE]15 turns of Carnival in the City when constructed. All [ICON_GREAT_WORK] Great Works in the City generate +1 [ICON_PEACE] Faith. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. Boosts Pressure of [ICON_RELIGION] Religious Majority emanating from this City by 40%, and increases the City''s resistance to conversion by 10%.[NEWLINE]
 [NEWLINE]+25% [ICON_GREAT_PEOPLE] Great People generation in this City.[NEWLINE]
 [NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom.
