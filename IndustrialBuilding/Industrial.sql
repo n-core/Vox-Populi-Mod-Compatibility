@@ -14,7 +14,8 @@ WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1
 UPDATE Language_EN_US
 SET Text = '5% of the City''s [ICON_PRODUCTION] Production converted into [ICON_GOLD] Gold every turn.[NEWLINE]
 [NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_FOOD] and [ICON_PRODUCTION] Distress.[NEWLINE]
-[NEWLINE]Nearby [ICON_RES_SHEEP] Sheep: +1 [ICON_PRODUCTION] Production.[NEWLINE]Nearby [ICON_RES_SILK] Silk: +1 [ICON_PRODUCTION] Production.[NEWLINE]Nearby [ICON_RES_COTTON] Cotton: +1 [ICON_PRODUCTION] Production.[NEWLINE]Nearby [ICON_RES_DYE] Dye: +2 [ICON_GOLD] Gold.'
+[NEWLINE]Nearby [ICON_RES_SHEEP] Sheep: +1 [ICON_PRODUCTION] Production.[NEWLINE]Nearby [ICON_RES_SILK] Silk: +1 [ICON_PRODUCTION] Production.[NEWLINE]Nearby [ICON_RES_COTTON] Cotton: +1 [ICON_PRODUCTION] Production.[NEWLINE]Nearby [ICON_RES_DYE] Dye: +2 [ICON_GOLD] Gold.[NEWLINE]
+[NEWLINE]City must have at least one of these resources improved.'
 WHERE Tag = 'TXT_KEY_BUILDING_TEXTILE_MILL_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);
 
