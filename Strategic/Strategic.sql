@@ -13,7 +13,11 @@ WHERE Tag = 'TXT_KEY_BUILDING_IRONWORKS_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Buildings SET
-Cost = 125, NumCityCostMod = 10, NationalPopRequired = 40, BoredomFlatReduction = 1, TechEnhancedTourism = 10, PrereqTech = 'TECH_ARCHAEOLOGY'
+BoredomFlatReductionGlobal = 1, TechEnhancedTourism = 5, PrereqTech = 'TECH_ARCHAEOLOGY',
+NumCityCostMod = (SELECT NumCityCostMod FROM Buildings WHERE Type = 'BUILDING_HERMITAGE'),
+NationalPopRequired = 55,
+Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_HERMITAGE'),
+HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILDING_HERMITAGE')
 WHERE Type = 'BUILDING_SCHOOL_OF_EQUESTRIAN_ART'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
@@ -34,15 +38,22 @@ WHERE BuildingType = 'BUILDING_SCHOOL_OF_EQUESTRIAN_ART'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 INSERT INTO Building_BuildingClassYieldChanges
-SELECT 'BUILDING_SCHOOL_OF_EQUESTRIAN_ART', bc.Type, y.Type, 1 FROM BuildingClasses bc, Yields y
+SELECT DISTINCT 'BUILDING_SCHOOL_OF_EQUESTRIAN_ART', bc.Type, y.Type, 1 FROM BuildingClasses bc, Yields y
 WHERE bc.Type IN ('BUILDINGCLASS_STABLE', 'BUILDINGCLASS_RACING_COURSE')
-AND y.Type IN ('YIELD_CULTURE', 'YIELD_TOURISM') UNION ALL
+AND y.Type IN ('YIELD_CULTURE', 'YIELD_TOURISM')
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1) UNION ALL
 
-SELECT DISTINCT b.Type, 'BUILDINGCLASS_EQUESTRIANART', 'YIELD_CULTURE', 2 FROM Buildings b
-WHERE b.BuildingClass = 'BUILDINGCLASS_STABLE'
+SELECT DISTINCT b.Type, 'BUILDINGCLASS_EQUESTRIANART', 'YIELD_CULTURE', 1 FROM Buildings b
+WHERE b.BuildingClass IN ('BUILDINGCLASS_STABLE', 'BUILDINGCLASS_RACING_COURSE')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
-CREATE TRIGGER VPMC_EQUESTRIANARTCompatibility
+INSERT INTO Policy_BuildingClassHappiness (PolicyType, BuildingClassType, Happiness)
+SELECT DISTINCT bch.PolicyType, 'BUILDINGCLASS_EQUESTRIANART', bch.Happiness
+FROM Policy_BuildingClassHappiness bch
+WHERE bch.PolicyType = 'POLICY_LEGALISM'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
+
+CREATE TRIGGER VPMC_EQUESTRIANART_Compatibility
 AFTER INSERT ON Civilization_BuildingClassOverrides
 WHEN NEW.BuildingClassType = 'BUILDINGCLASS_STABLE'
 AND NEW.BuildingType IS NOT NULL
@@ -53,10 +64,10 @@ BEGIN
 END;
 
 UPDATE Language_en_US SET
-Text = '+2 [ICON_CULTURE] Culture. +10 [ICON_TOURISM] Tourism after you researched [COLOR_CYAN]{TXT_KEY_TECH_ECOLOGY_TITLE}[ENDCOLOR].[NEWLINE]
-[NEWLINE]+1 [ICON_CULTURE] Culture and [ICON_TOURISM] Tourism to all owned {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s. +2 [ICON_CULTURE] Culture from all owned {TXT_KEY_BUILDING_STABLE}s.[NEWLINE]
-[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom.[NEWLINE]
-[NEWLINE]Requires 1 [ICON_RES_HORSE] Horse.[NEWLINE]
+Text = '+5 [ICON_TOURISM] Tourism after discovering [COLOR_CYAN]{TXT_KEY_TECH_ECOLOGY_TITLE}[ENDCOLOR].[NEWLINE]
+[NEWLINE]+1 [ICON_CULTURE] Culture and [ICON_TOURISM] Tourism to all owned {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s. +1 [ICON_CULTURE] Culture from all owned {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s.[NEWLINE]
+[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom in all Cities.[NEWLINE]
+[NEWLINE]Requires 1 [ICON_RES_HORSE] Horses.[NEWLINE]
 [NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of Cities you own.'
 WHERE Tag = 'TXT_KEY_BUILDING_EQUESTRIANART_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
@@ -72,7 +83,7 @@ WHERE Tag = 'TXT_KEY_BUILDING_EQUESTRIANART_STRATEGY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Buildings SET
-Happiness = 1, BoredomFlatReduction = 1,
+LocalPopRequired = 12, Happiness = 0, BoredomFlatReduction = 1,
 Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_HOSPITAL'),
 GoldMaintenance = (SELECT GoldMaintenance FROM Buildings WHERE Type = 'BUILDING_HOSPITAL'),
 HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILDING_HOSPITAL')
@@ -84,28 +95,43 @@ WHERE BuildingType = 'BUILDING_RACING_COURSE'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 INSERT INTO Building_YieldChangesPerPop (BuildingType, YieldType, Yield)
-SELECT 'BUILDING_RACING_COURSE', 'YIELD_TOURISM', 15
+SELECT 'BUILDING_RACING_COURSE', 'YIELD_TOURISM', 17
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 INSERT INTO Building_ClassesNeededInCity
 SELECT 'BUILDING_RACING_COURSE', 'BUILDINGCLASS_STABLE'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
+UPDATE Building_ResourceYieldChanges SET
+YieldType = 'YIELD_CULTURE'
+WHERE BuildingType = 'BUILDING_RACING_COURSE'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
+
 UPDATE Building_ResourceQuantityRequirements SET
 Cost = 1
 WHERE BuildingType = 'BUILDING_RACING_COURSE'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
+DELETE FROM Building_Flavors
+WHERE BuildingType = 'BUILDING_RACING_COURSE'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
+
+INSERT INTO Building_Flavors (BuildingType, FlavorType, Flavor)
+SELECT 'BUILDING_RACING_COURSE', 'FLAVOR_CULTURE', 30
+WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
+
 UPDATE Language_en_US SET
-Text = '+1 [ICON_TOURISM] Tourism for every 6 [ICON_CITIZEN] Population.[NEWLINE]
-[NEWLINE]+1 [ICON_HAPPINESS_1] Happiness, and -1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom.[NEWLINE]
+Text = '+1 [ICON_TOURISM] Tourism for every 6 [ICON_CITIZEN] Citizens.[NEWLINE]
+[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom.[NEWLINE]
 [NEWLINE]Requires 1 [ICON_RES_HORSE] Horses.[NEWLINE]
-[NEWLINE]Nearby [ICON_RES_HORSE] Horse: +1 [ICON_GOLD] Gold.'
+[NEWLINE]Can only be constructed in a City that have more than 12 [ICON_CITIZEN] Citizens.[NEWLINE]
+[NEWLINE]Nearby [ICON_RES_HORSE] Horses: +1 [ICON_CULTURE] Culture.'
 WHERE Tag = 'TXT_KEY_BUILDING_RACING_COURSE_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = '{TXT_KEY_BUILDING_RACING_COURSE} provides a late-game Happiness and Tourism boost to the City, and gives additional [ICON_GOLD] Gold to nearby [ICON_RES_HORSE] Horse. The City must already possess a {TXT_KEY_BUILDING_STABLE} before a {TXT_KEY_BUILDING_RACING_COURSE} can be constructed.'
+Text = '{TXT_KEY_BUILDING_RACING_COURSE} provides a late-game Tourism boost to the City, and gives additional [ICON_CULTURE] Culture to nearby [ICON_RES_HORSE] Horse. Reduces [ICON_HAPPINESS_3] Boredom.'||
+'The City must have at least 12 [ICON_CITIZEN] Citizens, and already possess a {TXT_KEY_BUILDING_STABLE} before a {TXT_KEY_BUILDING_RACING_COURSE} can be constructed.'
 WHERE Tag = 'TXT_KEY_BUILDING_RACING_COURSE_STRATEGY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
@@ -127,15 +153,14 @@ SELECT 'BUILDING_STEELMILL', 'BUILDINGCLASS_FORGE'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 INSERT INTO Building_BuildingClassYieldChanges
-SELECT 'BUILDING_STEELMILL', 'BUILDINGCLASS_STEELMILL', 'YIELD_PRODUCTION', 2
+SELECT 'BUILDING_STEELMILL', 'BUILDINGCLASS_STEELMILL', 'YIELD_PRODUCTION', 3
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 INSERT INTO Building_GlobalYieldModifiers
 SELECT 'BUILDING_STEELMILL', 'YIELD_PRODUCTION', 1
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
-UPDATE Building_YieldChanges SET
-Yield = 5
+DELETE FROM Building_YieldChanges
 WHERE BuildingType = 'BUILDING_STEELMILL'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
@@ -149,17 +174,17 @@ WHERE BuildingType = 'BUILDING_STEELMILL'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = '+1% [ICON_PRODUCTION] Production for all Cities.[NEWLINE]+5 [ICON_PRODUCTION] Production, and +2 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_STEELMILL} in the Empire.[NEWLINE]
+Text = '+1% [ICON_PRODUCTION] Production for all Cities. +3 [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_STEELMILL} in the Empire.[NEWLINE]
 [NEWLINE]Requires 1 [ICON_RES_IRON] Iron.[NEWLINE]
-[NEWLINE]The [ICON_PRODUCTION] Production Cost increase based on the number of cities you own.[NEWLINE]
-[NEWLINE]Maximum of ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_STEELMILL') || ' of these buildings in your Empire.'
+[NEWLINE]The [ICON_PRODUCTION] Production Cost increase based on the number of Cities you own.[NEWLINE]
+[NEWLINE]Maximum of 5 of these buildings in your Empire.'
 WHERE Tag = 'TXT_KEY_BUILDING_STEELMILL_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = 'The {TXT_KEY_BUILDING_STEELMILL} provides an Empire-wide [ICON_PRODUCTION] Production boost, and also an additional [ICON_PRODUCTION] Production bonus from each owned {TXT_KEY_BUILDING_STEELMILL} in the Empire. '||
+Text = 'The {TXT_KEY_BUILDING_STEELMILL} is an Industrial-era building that provides an Empire-wide [ICON_PRODUCTION] Production boost, and also provides [ICON_PRODUCTION] Production from each owned {TXT_KEY_BUILDING_STEELMILL} in the Empire. '||
 'Each {TXT_KEY_BUILDING_STEELMILL} only providing small [ICON_PRODUCTION] Production boost in all Cities, so this building is insignificant if only built one inside the Empire. '||
-'With a maximum up to ' || (SELECT MaxPlayerInstances FROM BuildingClasses WHERE Type = 'BUILDINGCLASS_STEELMILL') || ' of these buildings in your Empire, make sure you build these in your Cities to gain the stacking benefits. '||
+'With a maximum up to 5 of these buildings in your Empire, make sure you build these in your Cities to gain the stacking benefits. '||
 'The City must already possess a {TXT_KEY_BUILDING_FORGE} before a {TXT_KEY_BUILDING_STEELMILL} can be constructed.'
 WHERE Tag = 'TXT_KEY_BUILDING_STEELMILL_STRATEGY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
@@ -175,3 +200,9 @@ UPDATE Language_en_US SET
 Text = REPLACE(Text, 'Forges', 'Forges, Steel Mills')
 WHERE Tag = 'TXT_KEY_POLICY_TRADE_UNIONS_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
+
+-- Remove "--Wikipedia" from pedia texts
+UPDATE Language_en_US SET
+Text = REPLACE(Text, '[NEWLINE][NEWLINE]--Wikipedia', '')
+WHERE Tag IN ('TXT_KEY_BUILDING_EQUESTRIANART_PEDIA', 'TXT_KEY_BUILDING_RACING_COURSE_PEDIA', 'TXT_KEY_BUILDING_STEELMILL_PEDIA')
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_INDUSTRIAL' AND Value= 1);

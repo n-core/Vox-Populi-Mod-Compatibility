@@ -1,9 +1,9 @@
 INSERT  INTO Buildings
         (Type,                      BuildingClass,          Description,                        Help,
-        CapitalOnly, GoldMaintenance, Cost, FaithCost,	GreatWorkCount, NeverCapture, NukeImmune, ConquestProb,	HurryCostModifier,
+        Cost, FaithCost, GreatWorkCount, NeverCapture, ConquestProb, HurryCostModifier,
         IconAtlas, PortraitIndex, IsDummy, ShowInPedia, FreeBuildingThisCity, MutuallyExclusiveGroup, UnlockedByBelief)
 SELECT  'BUILDING_D_FOR_JCHURCH',   'BUILDINGCLASS_CHURCH', 'TXT_KEY_BUILDING_D_FOR_CHURCH',    'TXT_KEY_BUILDING_D_FOR_CHURCH_HELP',
-        0, 0, -1, 200, -1, 1, 1, 0, -1,
+        -1, 200, -1, 1, 0, -20,
         'COMMUNITY_ATLAS', 3, 0, 0, 'BUILDINGCLASS_GARDEN', 361, 1
 WHERE   EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
@@ -37,12 +37,22 @@ SELECT '+2 [ICON_PEACE] Faith and [ICON_CULTURE] Culture to {TXT_KEY_BUILDING_JC
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
 UPDATE Buildings SET
-WLTKDTurns = 15, ConversionModifier = -10, ReligiousPressureModifier = 40,
-BoredomFlatReduction = 1, NoUnhappfromXSpecialists = 1, Help = 'TXT_KEY_BUILDING_JCHURCH_HELP',
-GreatWorkCount = 1, GreatWorkSlotType = 'GREAT_WORK_SLOT_MUSIC',
-IconAtlas = 'COMMUNITY_ATLAS', PortraitIndex = 3,
+Help = 'TXT_KEY_BUILDING_JCHURCH_HELP',
+-- Inherit Church ability
+WLTKDTurns = (SELECT WLTKDTurns FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+GreatWorkCount = (SELECT GreatWorkCount FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+GreatWorkSlotType = (SELECT GreatWorkSlotType FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+ConversionModifier = (SELECT ConversionModifier FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+BoredomFlatReduction = (SELECT BoredomFlatReduction FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+ReligiousPressureModifier = (SELECT ReligiousPressureModifier FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+IconAtlas = (SELECT IconAtlas FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+PortraitIndex = (SELECT PortraitIndex FROM Buildings WHERE Type = 'BUILDING_CHURCH'),
+-- Inherit Garden ability
+FreshWater = (SELECT FreshWater FROM Buildings WHERE Type = 'BUILDING_GARDEN'),
+GreatPeopleRateModifier = (SELECT GreatPeopleRateModifier FROM Buildings WHERE Type = 'BUILDING_GARDEN'),
+NoUnhappfromXSpecialists = (SELECT NoUnhappfromXSpecialists FROM Buildings WHERE Type = 'BUILDING_GARDEN'),
 Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_GARDEN'),
-GoldMaintenance = 0,
+GoldMaintenance = (SELECT GoldMaintenance FROM Buildings WHERE Type = 'BUILDING_GARDEN'),
 HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILDING_GARDEN')
 WHERE Type = 'BUILDING_JCHURCH'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
@@ -56,9 +66,14 @@ SELECT 'BUILDING_JCHURCH', YieldType, Yield FROM Building_YieldChanges
 WHERE BuildingType = 'BUILDING_CHURCH'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
+INSERT INTO Building_GreatWorkYieldChangesLocal (BuildingType, YieldType, Yield)
+SELECT 'BUILDING_JCHURCH', YieldType, Yield FROM Building_GreatWorkYieldChangesLocal
+WHERE BuildingType = 'BUILDING_CHURCH'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
+
 INSERT INTO Building_ResourceYieldChanges (BuildingType, ResourceType, YieldType, Yield)
 SELECT 'BUILDING_JCHURCH', ResourceType, YieldType, Yield FROM Building_ResourceYieldChanges
-WHERE BuildingType = 'BUILDING_GARDEN' AND ResourceType <> 'RESOURCE_POPPY'
+WHERE BuildingType = 'BUILDING_GARDEN' AND ResourceType <> 'RESOURCE_POPPY' -- Don't include Poppy added from Even More Resources to prevent duplicated yield
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
 INSERT INTO Building_ResourceYieldChanges (BuildingType, ResourceType, YieldType, Yield)
@@ -85,16 +100,19 @@ AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value
 
 INSERT INTO Language_en_US (Text, Tag)
 SELECT '+1 [ICON_CULTURE] Culture for every 3 Jungle or 3 Forest tiles worked by the City.[NEWLINE]
-[NEWLINE]15 turns of Carnival in the City when constructed. All [ICON_GREAT_WORK] Great Works in the City generate +1 [ICON_PEACE] Faith. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. Boosts Pressure of [ICON_RELIGION] Religious Majority emanating from this City by 40%, and increases the City''s resistance to conversion by 10%.[NEWLINE]
+[NEWLINE]15 turns of "Carnival" in the City when constructed. All [ICON_GREAT_WORK] Great Works in the City generate +1 [ICON_PEACE] Faith. Contains 1 slot for a [ICON_GREAT_WORK] Great Work of Music. Boosts Pressure of [ICON_RELIGION] Religious Majority emanating from this City by 40%.[NEWLINE]
 [NEWLINE]+25% [ICON_GREAT_PEOPLE] Great People generation in this City.[NEWLINE]
 [NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom.
-[NEWLINE]1 Specialist in this City no longer produces [ICON_HAPPINESS_3] Unhappiness from Urbanization.[NEWLINE]
+[NEWLINE]1 Specialist in this City no longer produces [ICON_HAPPINESS_3] Unhappiness from [ICON_URBANIZATION] Urbanization.[NEWLINE]
 [NEWLINE]Nearby Oases: +2 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_BRAZILWOOD] Brazilwood: +2 [ICON_CULTURE] Culture.[NEWLINE]Nearby [ICON_RES_CITRUS] Citrus: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_COCOA] Cocoa: +1 [ICON_FOOD] Food, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_CLOVES] Cloves: +1 [ICON_PEACE] Faith, +1 [ICON_CULTURE] Culture.[NEWLINE]Nearby [ICON_RES_PEPPER] Pepper: +1 [ICON_PEACE] Faith, +1 [ICON_GOLD] Gold.[NEWLINE]Nearby [ICON_RES_NUTMEG] Nutmeg: +1 [ICON_CULTURE] Culture, +1 [ICON_PRODUCTION] Production.',
 'TXT_KEY_BUILDING_JCHURCH_HELP'
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 
 UPDATE Language_en_US
-SET Text = 'Unique {TXT_KEY_CIV_BRAZIL_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_GARDEN} and {TXT_KEY_BUILDING_CHURCH}. In addition to the regular abilities of a {TXT_KEY_BUILDING_GARDEN} and a {TXT_KEY_BUILDING_CHURCH} combined, the {TXT_KEY_BUILDING_JCHURCH_DESC} has no [ICON_GOLD] Gold Maintenance, and also provides a [ICON_CULTURE] Culture bonus on [ICON_RES_BRAZILWOOD] Brazilwood, also for every Jungle and Forest tiles within the workable plot. It also gain additional [ICON_PEACE] Faith and [ICON_CULTURE] Culture bonus if you use [ICON_PEACE] Faith to purchase this building with [COLOR:220:230:255:255]{TXT_KEY_BELIEF_SWORD_PLOWSHARES_SHORT}[ENDCOLOR] belief. Unlike the Garden, the Jesuit Church does not require an {TXT_KEY_BUILDING_AQUEDUCT} in the City in order to be built.'
+SET Text = 'Unique {TXT_KEY_CIV_BRAZIL_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_GARDEN} and {TXT_KEY_BUILDING_CHURCH}. '||
+'In addition to the regular abilities of a {TXT_KEY_BUILDING_GARDEN} and a {TXT_KEY_BUILDING_CHURCH} combined, the {TXT_KEY_BUILDING_JCHURCH_DESC} provides a [ICON_CULTURE] Culture bonus on [ICON_RES_BRAZILWOOD] Brazilwood, also for Jungle and Forest tiles worked by the City. '||
+'This building is free of [ICON_GOLD] Gold Maintenance, and gain additional [ICON_PEACE] Faith and [ICON_CULTURE] Culture bonus if you use [ICON_PEACE] Faith to purchase this building with [COLOR:220:230:255:255]{TXT_KEY_BELIEF_SWORD_PLOWSHARES_SHORT}[ENDCOLOR] belief. '||
+'Unlike the {TXT_KEY_BUILDING_GARDEN}, the {TXT_KEY_BUILDING_JCHURCH_DESC} does not require an {TXT_KEY_BUILDING_AQUEDUCT} in the City in order to be built.'
 WHERE Tag = 'TXT_KEY_BUILDING_JCHURCH_STRATEGY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_BRAZILWOOD_CAMP' AND Value= 1 );
 

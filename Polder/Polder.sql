@@ -11,7 +11,8 @@ WHERE Type LIKE '%POLDER%'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_POLDER' AND Value= 1);
 
 UPDATE Buildings SET
-BuildingProductionModifier = 25, Flat = 0,
+BuildingProductionModifier = (SELECT BuildingProductionModifier FROM Buildings WHERE Type = 'BUILDING_WINDMILL') + 10,
+Flat = (SELECT Flat FROM Buildings WHERE Type = 'BUILDING_WINDMILL'),
 Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_WINDMILL'),
 GoldMaintenance = (SELECT GoldMaintenance FROM Buildings WHERE Type = 'BUILDING_WINDMILL'),
 HurryCostModifier = (SELECT HurryCostModifier FROM Buildings WHERE Type = 'BUILDING_WINDMILL')
@@ -32,13 +33,13 @@ SELECT  'BUILDING_WIMMEN', 'FLAVOR_GOLD', 5 WHERE EXISTS (SELECT * FROM COMMUNIT
 
 INSERT INTO Building_ImprovementYieldChanges (BuildingType, ImprovementType, YieldType, Yield)
 SELECT 'BUILDING_WIMMEN', i.Type, y.Type, 1 FROM Improvements i, Yields y
-WHERE i.Type IN ('IMPROVEMENT_POLDER', 'IMPROVEMENT_POLDER_WATER')
+WHERE i.Type LIKE '%POLDER%'
 AND y.Type IN ('YIELD_FOOD', 'YIELD_CULTURE')
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_POLDER' AND Value= 1);
 
 INSERT INTO Building_YieldFromConstruction (BuildingType, YieldType, Yield)
-SELECT 'BUILDING_WIMMEN', 'YIELD_CULTURE', 10 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOREINDUSTRIAL' AND Value= 1)UNION ALL
-SELECT 'BUILDING_WIMMEN', 'YIELD_GOLD', 10 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOREINDUSTRIAL' AND Value= 1);
+SELECT 'BUILDING_WIMMEN', 'YIELD_CULTURE', 10 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_POLDER' AND Value= 1) UNION ALL
+SELECT 'BUILDING_WIMMEN', 'YIELD_GOLD', 10 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_POLDER' AND Value= 1);
 
 INSERT INTO Building_FeatureYieldChanges (BuildingType, FeatureType, YieldType, Yield)
 SELECT 'BUILDING_WIMMEN', FeatureType, YieldType, Yield FROM Building_FeatureYieldChanges
@@ -64,5 +65,5 @@ WHERE Tag = 'TXT_KEY_BUILDING_WIMMEN_STRATEGY' AND EXISTS (SELECT * FROM COMMUNI
 
 UPDATE Language_EN_US
 SET Text = '+10 [ICON_GOLD] Gold and [ICON_CULTURE] Culture when you construct a Building in this City, scaling with Era. +1 [ICON_FOOD] Food and [ICON_CULTURE] Culture to Polders.[NEWLINE]
-[NEWLINE]+25% [ICON_PRODUCTION] Production when constructing Buildings. Grocer and Granary in the City produce +1 [ICON_FOOD] Food, and all owned {TXT_KEY_BUILDING_WIMMEN}s gain +1 [ICON_CULTURE] Culture. Nearby Marshes and Lakes produce +2 [ICON_PRODUCTION] Production and [ICON_GOLD] Gold.'
+[NEWLINE]+25% [ICON_PRODUCTION] Production when constructing Buildings. {TXT_KEY_BUILDING_GROCER} and {TXT_KEY_BUILDING_GRANARY} in the City produce +1 [ICON_FOOD] Food, and all owned {TXT_KEY_BUILDING_WIMMEN}s gain +1 [ICON_CULTURE] Culture. Nearby Marshes and Lakes produce +2 [ICON_PRODUCTION] Production and [ICON_GOLD] Gold.'
 WHERE Tag = 'TXT_KEY_BUILDING_WIMMEN_HELP' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_POLDER' AND Value= 1);

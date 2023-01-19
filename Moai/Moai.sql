@@ -9,7 +9,8 @@ WHERE Type = 'BUILDING_MARA' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBP
 
 UPDATE Building_Flavors
 SET Flavor = 30
-WHERE BuildingType = 'BUILDING_MARA' AND FlavorType = 'FLAVOR_CULTURE' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
+WHERE BuildingType = 'BUILDING_MARA' AND FlavorType = 'FLAVOR_CULTURE'
+AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 INSERT INTO Building_YieldChanges (BuildingType, YieldType, Yield)
 SELECT 'BUILDING_MARA', 'YIELD_CULTURE', 2
@@ -21,7 +22,8 @@ WHERE BuildingType = 'BUILDING_TEMPLE'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1 );
 
 INSERT INTO Building_ResourceYieldChanges (BuildingType, ResourceType, YieldType, Yield)
-SELECT 'BUILDING_MARA', 'RESOURCE_FISH', 'YIELD_FAITH', 1 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
+SELECT 'BUILDING_MARA', 'RESOURCE_FISH', 'YIELD_FAITH', 1
+WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 INSERT INTO Building_ImprovementYieldChanges (BuildingType, ImprovementType, YieldType, Yield)
 SELECT 'BUILDING_MARA', 'IMPROVEMENT_MOAI', 'YIELD_CULTURE', 1
@@ -52,7 +54,11 @@ SELECT 'Gain 10 [ICON_CULTURE] Culture whenever a [ICON_CITIZEN] Citizen is born
 WHERE EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
 UPDATE Language_EN_US
-SET Text = 'Unique {TXT_KEY_CIV_POLYNESIA_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_TEMPLE}. {TXT_KEY_BUILDING_MARA_DESC} gives additional [ICON_CULTURE] Culture every time a Citizen is born in the City. Helps reduce [ICON_HAPPINESS_3] Religious Unrest and Boredom, and generates +25% Religious Pressure. It also provides [ICON_CULTURE] Culture bonus to every Coast tiles and Atolls worked by the city. The City must have a {TXT_KEY_BUILDING_SHRINE} before the {TXT_KEY_BUILDING_MARA_DESC} can be constructed.'
+SET Text = 'Unique {TXT_KEY_CIV_POLYNESIA_ADJECTIVE} replacement for the {TXT_KEY_BUILDING_TEMPLE}. '||
+'{TXT_KEY_BUILDING_MARA_DESC} gives additional [ICON_CULTURE] Culture every time a Citizen is born in the City. '||
+'Helps reduce [ICON_HAPPINESS_3] Religious Unrest and Boredom, and generates +25% Religious Pressure. '||
+'It also provides [ICON_CULTURE] Culture bonus to every Coast tiles and Atolls worked by the city. '||
+'The City must have a {TXT_KEY_BUILDING_SHRINE} before the {TXT_KEY_BUILDING_MARA_DESC} can be constructed.'
 WHERE Tag = 'TXT_KEY_BUILDING_MARA_STRATEGY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOAI' AND Value= 1);
 
