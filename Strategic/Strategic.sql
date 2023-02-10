@@ -13,7 +13,7 @@ WHERE Tag = 'TXT_KEY_BUILDING_IRONWORKS_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_STRATEGIC' AND Value= 1);
 
 UPDATE Buildings SET
-BoredomFlatReductionGlobal = 1, TechEnhancedTourism = 5, PrereqTech = 'TECH_ARCHAEOLOGY',
+BoredomFlatReduction = 1, TechEnhancedTourism = 5, PrereqTech = 'TECH_ARCHAEOLOGY',
 NumCityCostMod = (SELECT NumCityCostMod FROM Buildings WHERE Type = 'BUILDING_HERMITAGE'),
 NationalPopRequired = 55,
 Cost = (SELECT Cost FROM Buildings WHERE Type = 'BUILDING_HERMITAGE'),
@@ -65,8 +65,8 @@ END;
 
 UPDATE Language_en_US SET
 Text = '+5 [ICON_TOURISM] Tourism after discovering [COLOR_CYAN]{TXT_KEY_TECH_ECOLOGY_TITLE}[ENDCOLOR].[NEWLINE]
-[NEWLINE]+1 [ICON_CULTURE] Culture and [ICON_TOURISM] Tourism to all owned {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s. +1 [ICON_CULTURE] Culture from all owned {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s.[NEWLINE]
-[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom in all Cities.[NEWLINE]
+[NEWLINE]All {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s gain +1 [ICON_CULTURE] Culture and [ICON_TOURISM] Tourism. +1 [ICON_CULTURE] Culture from all owned {TXT_KEY_BUILDING_STABLE}s and {TXT_KEY_BUILDING_RACING_COURSE}s.[NEWLINE]
+[NEWLINE]-1 [ICON_HAPPINESS_3] Unhappiness from [ICON_CULTURE] Boredom in this City.[NEWLINE]
 [NEWLINE]Requires 1 [ICON_RES_HORSE] Horses.[NEWLINE]
 [NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of Cities you own.'
 WHERE Tag = 'TXT_KEY_BUILDING_EQUESTRIANART_HELP'

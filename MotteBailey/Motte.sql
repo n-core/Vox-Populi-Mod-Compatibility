@@ -26,17 +26,12 @@ UPDATE Improvements
 SET NoTwoAdjacent = '1'
 WHERE Type = 'IMPROVEMENT_MAB' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOTTE' AND Value= 1);
 
-UPDATE BuildFeatures
-SET Remove = '0'
+DELETE FROM BuildFeatures
 WHERE BuildType = 'BUILD_MAB' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOTTE' AND Value= 1);
 
-UPDATE BuildFeatures
-SET Time = '0'
-WHERE BuildType = 'BUILD_MAB' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOTTE' AND Value= 1);
-
-UPDATE Builds
-SET PrereqTech = 'TECH_CONSTRUCTION'
-WHERE Type = 'BUILD_MAB' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOTTE' AND Value= 1);
+INSERT INTO BuildFeatures (BuildType, FeatureType, PrereqTech, Time, Production, Cost, Remove, ObsoleteTech)
+SELECT DISTINCT 'BUILD_MAB', FeatureType, PrereqTech, Time, Production, Cost, Remove, ObsoleteTech FROM BuildFeatures
+WHERE BuildType = 'BUILD_FORT' AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_MOTTE' AND Value= 1);
 
 INSERT INTO Improvement_Yields (ImprovementType, YieldType, Yield)
 SELECT 'IMPROVEMENT_MAB', YieldType, Yield FROM Improvement_Yields

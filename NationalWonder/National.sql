@@ -148,7 +148,7 @@ WHERE Tag = 'TXT_KEY_BUILDING_FA_WAR_ACADEMY'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_NATIONAL' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = '+25 [ICON_WAR] XP for all Land Units trained in this City, and +10 [ICON_WAR] XP elsewhere. All Land Units may receive the [COLOR_POSITIVE_TEXT]{TXT_KEY_PROMOTION_FA_WAR_ACADEMY}[ENDCOLOR] promotion.[NEWLINE]
+Text = '+25 [ICON_WAR] XP for all Land Units trained in this City, and +10 [ICON_WAR] XP in all other Cities. All Land Units may receive the [COLOR_POSITIVE_TEXT]{TXT_KEY_PROMOTION_FA_WAR_ACADEMY}[ENDCOLOR] promotion.[NEWLINE]
 [NEWLINE]Cannot have the [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_FA_SEA_ACADEMY}[ENDCOLOR] or the [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_FA_AIR_ACADEMY}[ENDCOLOR] already built in the City.[NEWLINE]
 [NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of cities you own.'
 WHERE Tag = 'TXT_KEY_BUILDING_FA_WAR_ACADEMY_HELP'
@@ -202,7 +202,7 @@ WHERE BuildingType = 'BUILDING_FA_SEA_ACADEMY' AND FlavorType IN ('FLAVOR_PRODUC
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_NATIONAL' AND Value= 1 );
 
 UPDATE Language_en_US SET
-Text = '+25 [ICON_WAR] XP for all Sea Units trained in this City, and +10 [ICON_WAR] XP elsewhere. All Naval Units may receive the [COLOR_POSITIVE_TEXT]{TXT_KEY_PROMOTION_FA_SEA_ACADEMY}[ENDCOLOR] Promotion.[NEWLINE]
+Text = '+25 [ICON_WAR] XP for all Sea Units trained in this City, and +10 [ICON_WAR] XP in all other Cities. All Naval Units may receive the [COLOR_POSITIVE_TEXT]{TXT_KEY_PROMOTION_FA_SEA_ACADEMY}[ENDCOLOR] Promotion.[NEWLINE]
 [NEWLINE]Cannot have the [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_FA_WAR_ACADEMY}[ENDCOLOR] or the [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_FA_AIR_ACADEMY}[ENDCOLOR] already built in the City.[NEWLINE]
 [NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of cities you own.'
 WHERE Tag = 'TXT_KEY_BUILDING_FA_SEA_ACADEMY_HELP'
@@ -246,7 +246,7 @@ WHERE BuildingType = 'BUILDING_FA_AIR_ACADEMY' AND FlavorType IN ('FLAVOR_PRODUC
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_NATIONAL' AND Value= 1 );
 
 UPDATE Language_en_US SET
-Text = '+25 [ICON_WAR] XP for all Air Units trained in this City, and +10 [ICON_WAR] XP elsewhere. All Air Units may receive the [COLOR_POSITIVE_TEXT]{TXT_KEY_PROMOTION_FA_AIR_ACADEMY}[ENDCOLOR] promotion.[NEWLINE]
+Text = '+25 [ICON_WAR] XP for all Air Units trained in this City, and +10 [ICON_WAR] XP in all other Cities. All Air Units may receive the [COLOR_POSITIVE_TEXT]{TXT_KEY_PROMOTION_FA_AIR_ACADEMY}[ENDCOLOR] promotion.[NEWLINE]
 [NEWLINE]Cannot have the [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_FA_WAR_ACADEMY}[ENDCOLOR] or the [COLOR_NEGATIVE_TEXT]{TXT_KEY_BUILDING_FA_SEA_ACADEMY}[ENDCOLOR] already built in the City.[NEWLINE]
 [NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of Cities you own.'
 WHERE Tag = 'TXT_KEY_BUILDING_FA_AIR_ACADEMY_HELP'
@@ -389,8 +389,8 @@ WHERE Type = 'UNIT_FA_CENTRAL_STATION'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_NATIONAL' AND Value= 1);
 
 UPDATE Language_en_US SET
-Text = '+25% [ICON_GOLD] Gold from [ICON_TRADE] City Connections in this City, and +10% [ICON_GOLD] Gold from [ICON_TRADE] City Connections for the rest of other Cities. Turns required to finish [ICON_INTERNATIONAL_TRADE] Trade Routes reduced by 50% in every City. {TXT_KEY_BUILDING_TRAINSTATION} in this City becomes [COLOR_POSITIVE_TEXT]Free[ENDCOLOR].[NEWLINE]
-[NEWLINE]+1 [ICON_GOLD] Gold and [ICON_PRODUCTION] Production to all owned Train Stations and Seaports.[NEWLINE]
+Text = '+25% [ICON_GOLD] Gold from [ICON_TRADE] City Connections in this City, and +10% [ICON_GOLD] Gold from [ICON_TRADE] City Connections in all other Cities. Turns required to finish [ICON_INTERNATIONAL_TRADE] Trade Routes reduced by 50% in every City. {TXT_KEY_BUILDING_TRAINSTATION} in this City becomes [COLOR_POSITIVE_TEXT]Free[ENDCOLOR].[NEWLINE]
+[NEWLINE]All Train Stations and Seaports gain +1 [ICON_GOLD] Gold and [ICON_PRODUCTION] Production.[NEWLINE]
 [NEWLINE]The [ICON_PRODUCTION] Production Cost and [ICON_CITIZEN] Population Requirements increase based on the number of Cities you own.'
 WHERE Tag = 'TXT_KEY_BUILDING_FA_CENTRAL_STATION_HELP'
 AND EXISTS (SELECT * FROM COMMUNITY WHERE Type='CBPMC_NATIONAL' AND Value= 1);
